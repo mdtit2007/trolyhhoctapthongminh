@@ -1,0 +1,235 @@
+﻿/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    margin-top: 180px;
+}
+
+
+
+/* Filters section */
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-radius: 8px;
+}
+
+    .filters label {
+        display: inline-block;
+        margin-right: 15px;
+    }
+
+    .filters input[type="radio"] {
+        margin-right: 5px;
+    }
+
+.date-picker {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+    .date-picker input {
+        padding: 5px 10px;
+        font-size: 16px;
+        margin-right: 10px;
+        border-radius: 4px;
+        border: 1px solid #ddd;
+    }
+
+    .date-picker button {
+        background-color: #28a745;
+        color: #fff;
+        border: none;
+        padding: 6px 10px;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+
+.buttons button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+    .buttons button i {
+        margin-right: 5px;
+    }
+
+    .buttons button:hover {
+        background-color: #f4f4f9;
+        color: #6c757d;
+    }
+
+
+.schedule-table-wrapper {
+    overflow-x: auto; /* Cho phép cuộn ngang nếu bảng quá rộng */
+    -webkit-overflow-scrolling: touch; /* Tăng cường trải nghiệm cuộn trên thiết bị di động */
+    margin-top: 20px;
+}
+
+.schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px; /* Đảm bảo bảng không quá nhỏ, giữ ít nhất 600px */
+}
+
+    .schedule-table th,
+    .schedule-table td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: center;
+    }
+
+    .schedule-table th {
+        background-color: #fb7c4d;
+        color: #fff;
+    }
+
+    .schedule-table td {
+        background-color: #c4f5a6;
+    }
+
+    .schedule-table tr:nth-child(even) td {
+        background-color: #f2f9b8;
+    }
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .schedule-table-wrapper {
+        margin-top: 10px;
+    }
+
+    .schedule-table th,
+    .schedule-table td {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .schedule-table th {
+        font-size: 12px;
+    }
+
+    .schedule-table-wrapper {
+        overflow-x: auto;
+    }
+
+    .schedule-table {
+        min-width: 600px; /* Giữ độ rộng tối thiểu cho bảng */
+    }
+}
+
+@media (max-width: 480px) {
+    .schedule-table th,
+    .schedule-table td {
+        padding: 6px;
+        font-size: 12px;
+    }
+
+    .schedule-table th {
+        font-size: 10px;
+    }
+
+    .schedule-table-wrapper {
+        margin-top: 5px;
+    }
+}
+/* Legend */
+.legend {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+    .legend div {
+        display: flex;
+        align-items: center;
+        margin-right: 20px;
+        margin-bottom: 10px;
+    }
+
+    .legend span {
+        width: 15px;
+        height: 15px;
+        display: inline-block;
+        margin-right: 5px;
+        border-radius: 50%;
+    }
+
+.theory {
+    background-color: #f9905f; /* Màu xanh dương cho lịch học */
+}
+
+.practice {
+    background-color: #c4f5a6; /* Màu xanh lá cho sự kiện khác */
+}
+
+.exam {
+    background-color: #f2f9b8; /* Màu vàng cho lịch thi */
+}
+
+.suspend {
+    background-color: #f9905f; /* Màu đỏ cho lịch tạm ngưng */
+}
+
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .filters {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .date-picker {
+        margin-top: 10px;
+    }
+
+    .buttons button {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .schedule-table th, .schedule-table td {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .schedule-table th {
+        font-size: 12px;
+    }
+
+    .legend {
+        flex-direction: column;
+    }
+
+        .legend div {
+            margin-right: 0;
+        }
+}
+
+@media (max-width: 480px) {
+    .schedule-table th, .schedule-table td {
+        padding: 6px;
+        font-size: 12px;
+    }
+
+    .legend span {
+        width: 12px;
+        height: 12px;
+    }
+
+    .buttons button {
+        font-size: 14px;
+    }
+}

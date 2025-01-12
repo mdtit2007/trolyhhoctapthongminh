@@ -1,0 +1,20 @@
+﻿
+
+@model IEnumerable<ungdunghocthongminh.Models.EF.Category>
+@if (Model != null && Model.Any())
+{
+    <div class="navbar-nav mx-auto">
+        @foreach (var item in Model)
+        {
+            if (item.Alias.Equals("trang-chu"))
+            {
+                item.Alias = "";
+            }
+            if (!string.IsNullOrEmpty(item.link))
+            {
+                item.Alias = item.link;
+            }
+            <a href="/@item.Alias" class="nav-item nav-link active">@item.Title</a>
+        }
+    </div>
+}

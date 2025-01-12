@@ -1,0 +1,146 @@
+﻿using PagedList;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.UI;
+using ungdunghocthongminh.Models;
+using ungdunghocthongminh.Models.EF;
+
+namespace ungdunghocthongminh.Areas.Admin.Controllers
+{
+    public class DocumentController : Controller
+    {
+       private ApplicationDbContext db = new ApplicationDbContext();
+        // GET: Admin/Document
+        public ActionResult Index(string Searchtext, int? page)
+        {
+            var pageSize = 10;
+            if (page == null)
+            {
+                page = 1;
+            }
+            IEnumerable<Document> items = db.Documents.OrderByDescending(x => x.Id);
+            if (!string.IsNullOrEmpty(Searchtext))
+            {
+                items = items.Where(x => x.Alias.Contains(Searchtext) || x.Title.Contains(Searchtext));
+            }
+            var pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            items = items.ToPagedList(pageIndex, pageSize);
+            ViewBag.PageSize = pageSize;
+            ViewBag.Page = page;
+            return View(items);
+        }
+        public ActionResult Add()
+        {
+          ViewBag.DoccumentCategory = new SelectList(db.DocumentCategories, "Id", "Title");
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Add(Document model, HttpPostedFileBase file)
+        {
+            if (ModelState.IsValid)
+            {
+                // Xử lý tải lên tệp
+                if (file != null && file.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(file.FileName);
+                    var path = Path.Combine(Server.MapPath("~/Uploads/"), fileName);
+                    file.SaveAs(path);
+                    model.FilePath = "/Uploads//" + fileName;  // Lưu đường dẫn tệp vào model
+                }
+
+                model.CreatedDate = DateTime.Now;
+                model.Alias = ungdunghocthongminh.Models.Common.Filter.FilterChar(model.Title);
+                db.Documents.Add(model);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.DoccumentCategory = new SelectList(db.DocumentCategories, "Id", "Title");
+            return View();
+        }
+        public ActionResult Edit(int id)
+        {
+            var item = db.Documents.Find(id);
+            ViewBag.DoccumentCategory = new SelectList(db.DocumentCategories, "Id", "Title");
+            return View(item);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Document model, HttpPostedFileBase file)
+        {
+            if (ModelState.IsValid)
+            {
+                // Xử lý tải lên tệp (nếu có tệp mới)
+                if (file != null && file.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(file.FileName);
+                    var path = Path.Combine(Server.MapPath("~/Uploads/"), fileName);
+                    file.SaveAs(path);
+                    model.FilePath = "/Uploads//" + fileName;  // Lưu đường dẫn tệp vào model
+                }
+
+                model.CreatedDate = DateTime.Now;
+                model.Alias = ungdunghocthongminh.Models.Common.Filter.FilterChar(model.Title);
+                db.Documents.Attach(model);
+                db.Entry(model).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.DoccumentCategory = new SelectList(db.DocumentCategories, "Id", "Title");
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Delete(int id)
+        {
+            var item = db.Documents.Find(id);
+            if (item != null)
+            {
+                //var DeleteItem = db.Categories.Attach(item);
+                db.Documents.Remove(item);
+                db.SaveChanges();
+                return Json(new { success = true });
+            }
+            return Json(new { success = false });
+        }
+        [HttpPost]
+        public ActionResult DeleteAll(string ids)
+        {
+            if (!string.IsNullOrEmpty(ids))
+            {
+                var items = ids.Split(',');
+                if (items != null && items.Any())
+                {
+                    foreach (var item in items)
+                    {
+                        var obj = db.Documents.Find(Convert.ToInt32(item));
+                        db.Documents.Remove(obj);
+                        db.SaveChanges();
+                    }
+                }
+                return Json(new { success = true });
+            }
+            return Json(new { success = false });
+        }
+
+        [HttpPost]
+        public ActionResult IsActive(int id)
+        {
+            var item = db.Documents.Find(id);
+            if (item != null)
+            {
+                item.IsActive = !item.IsActive;
+                db.Entry(item).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                return Json(new { success = true, isAcive = item.IsActive });
+            }
+
+            return Json(new { success = false });
+        }
+    }
+}

@@ -1,0 +1,58 @@
+﻿@model IEnumerable<ungdunghocthongminh.Models.EF.Schedule>
+@{
+    ViewBag.Title = "Nhắc Nhở Học Tập";
+    var tomorrow = DateTime.Now.AddDays(1).Date; // Lấy ngày mai
+    var hasScheduleTomorrow = Model != null && Model.Any(m => m.Start.Date == tomorrow); // Kiểm tra nếu có lịch ngày mai
+}
+<div class="container mt-5">
+    <div class="text-center mb-4">
+        <h2 class="display-6 fw-bold">Nhắc Nhở Học Tập</h2>
+        <p class="text-muted">Danh sách các nhắc nhở quan trọng của bạn</p>
+    </div>
+
+    <div class="row justify-content-center">
+        @if (hasScheduleTomorrow)
+        {
+            foreach (var reminder in Model.Where(m => m.Start.Date == tomorrow))
+            {
+                var reminderText = reminder.Reminder ?? "Không có nhắc nhở cụ thể.";
+
+                <div class="col-md-12">
+                    <div class="card border-light shadow-sm">
+                        <div class="card-body">
+                            <div class="col-md-6">
+                                <p class="card-text">
+                                    📢 <span class="fw-bold">@reminder.Reminder</span>
+                                </p>
+                                <p class="card-text">
+                                    <span class="">@reminder.Title</span>
+                                </p>
+                                <p class="card-text">
+                                    <span>Tiết: @reminder.Tiet</span>
+                                </p>
+                                <p class="card-text">
+                                    <span>@reminder.Start.ToString("dd/MM/yyyy") - @reminder.End.ToString("dd/MM/yyyy")</span>
+                                </p>
+                                <p class="card-text">
+                                    <span>Lớp: @reminder.className</span>
+                                </p>
+                                <p class="card-text">
+                                    <span>GV: @reminder.TeacherName</span>
+                                </p>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-12 text-center">
+                <p class="text-muted">Hiện tại không có nhắc nhở nào cho ngày mai.</p>
+            </div>
+        }
+    </div>
+</div>
+
+

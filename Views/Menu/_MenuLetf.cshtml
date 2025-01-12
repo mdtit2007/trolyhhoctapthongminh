@@ -1,0 +1,30 @@
+﻿@model IEnumerable<ungdunghocthongminh.Models.EF.DocumentCategory>
+@if (Model != null && Model.Any())
+{
+    <div class="sidebar">
+        <h3>Danh Sách Tài Liệu</h3>
+        <ul>
+            @foreach (var item in Model)
+            {
+                if (ViewBag.CateId == item.Id) // Nếu danh mục đang được chọn
+                {
+                    <li class="active">
+                        <a href="/danh-muc-tai-lieu/@item.Alias-@(item.Id)">
+                            <span><i class="fa fa-angle-double-right" aria-hidden="true"></i></span>@item.Title
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a href="/danh-muc-tai-lieu/@item.Alias-@(item.Id)">@item.Title</a>
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+}
+
+
+
+

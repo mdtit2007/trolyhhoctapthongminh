@@ -1,0 +1,125 @@
+﻿using PagedList;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.UI;
+using ungdunghocthongminh.Models;
+using ungdunghocthongminh.Models.EF;
+
+namespace ungdunghocthongminh.Areas.Admin.Controllers
+{
+    public class ExamController : Controller
+    {
+        private ApplicationDbContext db = new ApplicationDbContext();
+        // GET: Admin/Exam
+        public ActionResult Index(string Searchtext, int? page)
+        {
+            var pageSize = 10;
+            if (page == null)
+            {
+                page = 1;
+            }
+            IEnumerable<Exam> items = db.Exams.OrderByDescending(x => x.Id);
+            if (!string.IsNullOrEmpty(Searchtext))
+            {
+                items = items.Where(x => x.Alias.Contains(Searchtext) || x.Title.Contains(Searchtext));
+            }
+            var pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            items = items.ToPagedList(pageIndex, pageSize);
+            ViewBag.PageSize = pageSize;
+            ViewBag.Page = page;
+            return View(items);
+        }
+        public ActionResult Add()
+        {
+            ViewBag.DoccumentCategory = new SelectList(db.DocumentCategories, "Id", "Title");
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Add(Exam model)
+        {
+            if (ModelState.IsValid)
+            {
+                model.CreatedDate = DateTime.Now;
+                model.Alias = ungdunghocthongminh.Models.Common.Filter.FilterChar(model.Title);
+                db.Exams.Add(model);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.DoccumentCategory = new SelectList(db.DocumentCategories, "Id", "Title");
+            return View();
+        }
+        public ActionResult Edit(int id)
+        {
+            var item = db.Exams.Find(id);
+            ViewBag.DoccumentCategory = new SelectList(db.DocumentCategories, "Id", "Title");
+            return View(item);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Exam model)
+        {
+            if (ModelState.IsValid)
+            {
+                model.CreatedDate = DateTime.Now;
+                model.Alias = ungdunghocthongminh.Models.Common.Filter.FilterChar(model.Title);
+                db.Exams.Attach(model);
+                db.Entry(model).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.DoccumentCategory = new SelectList(db.DocumentCategories, "Id", "Title");
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Delete(int id)
+        {
+            var item = db.Exams.Find(id);
+            if (item != null)
+            {
+                //var DeleteItem = db.Categories.Attach(item);
+                db.Exams.Remove(item);
+                db.SaveChanges();
+                return Json(new { success = true });
+            }
+            return Json(new { success = false });
+        }
+        [HttpPost]
+        public ActionResult IsActive(int id)
+        {
+            var item = db.Exams.Find(id);
+            if (item != null)
+            {
+                item.IsActive = !item.IsActive;
+                db.Entry(item).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                return Json(new { success = true, isAcive = item.IsActive });
+            }
+
+            return Json(new { success = false });
+        }
+
+        [HttpPost]
+        public ActionResult DeleteAll(string ids)
+        {
+            if (!string.IsNullOrEmpty(ids))
+            {
+                var items = ids.Split(',');
+                if (items != null && items.Any())
+                {
+                    foreach (var item in items)
+                    {
+                        var obj = db.Exams.Find(Convert.ToInt32(item));
+                        db.Exams.Remove(obj);
+                        db.SaveChanges();
+                    }
+                }
+                return Json(new { success = true });
+            }
+            return Json(new { success = false });
+        }
+    }
+}

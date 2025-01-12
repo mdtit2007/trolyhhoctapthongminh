@@ -1,0 +1,166 @@
+﻿/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    margin-top: 180px;
+}
+
+/* Filters section */
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-radius: 8px;
+}
+
+    .filters label {
+        display: inline-block;
+        margin-right: 15px;
+    }
+
+    .filters input[type="radio"] {
+        margin-right: 5px;
+    }
+
+/* Radio button styles */
+input[type="radio"] {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #fb7c4d;
+    border-radius: 50%;
+    outline: none;
+    cursor: pointer;
+    background-color: #fff;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+    input[type="radio"]:checked {
+        background-color: #fb7c4d;
+        border-color: #e3672d;
+    }
+
+    input[type="radio"]:hover {
+        border-color: #e3672d;
+        box-shadow: 0 0 4px rgba(251, 124, 77, 0.6);
+    }
+
+/* Schedule table */
+.schedule-table-wrapper {
+    overflow-x: auto;
+    margin-top: 20px;
+    padding: 0 10px; /* Thêm padding để trông đẹp hơn */
+}
+
+.schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 800px; /* Tăng chiều rộng bảng */
+    max-width: 1000px; /* Đặt giới hạn chiều rộng */
+    margin: 0 auto; /* Căn giữa bảng */
+    border: 1px solid #ddd;
+}
+
+    .schedule-table th,
+    .schedule-table td {
+        border: 1px solid #ddd;
+        padding: 15px; /* Tăng khoảng cách trong ô */
+        text-align: center;
+        font-size: 16px; /* Tăng kích thước chữ */
+        white-space: nowrap; /* Tránh xuống dòng */
+    }
+
+    .schedule-table th {
+        background-color: #f9905f;
+        color: #fff;
+        font-weight: bold;
+    }
+
+    .schedule-table td {
+        background-color: #fff;
+    }
+
+/* Legend styles */
+.legend {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+    .legend div {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .legend span {
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+    }
+
+/* Legend colors */
+.theory {
+    background-color: #daebf9;
+}
+
+.practice {
+    background-color: #dffdcc;
+}
+
+.exam {
+    background-color: #f9fccc;
+}
+
+.suspend {
+    background-color: #fec0af;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .schedule-table {
+        min-width: 700px; /* Giảm chiều rộng trên màn hình nhỏ hơn */
+    }
+}
+
+@media (max-width: 768px) {
+    .filters {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .schedule-table-wrapper {
+        overflow-x: auto;
+    }
+
+    .schedule-table th,
+    .schedule-table td {
+        padding: 10px;
+        font-size: 14px; /* Giảm kích thước chữ */
+    }
+}
+
+@media (max-width: 480px) {
+    .filters {
+        gap: 5px;
+    }
+
+    .schedule-table th,
+    .schedule-table td {
+        padding: 8px;
+        font-size: 12px;
+    }
+
+    .legend span {
+        width: 12px;
+        height: 12px;
+    }
+}

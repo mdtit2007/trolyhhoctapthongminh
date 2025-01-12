@@ -1,0 +1,36 @@
+﻿@model ungdunghocthongminh.Models.EF.Advise
+@{
+    ViewBag.Title = " chi tiết tư vấn nghề nghiệp";
+}
+
+<style>
+    .news_section_container {
+        margin-top: 30px;
+    }
+
+    .row_item_news {
+        margin-bottom: 20px;
+    }
+</style>
+
+<div class="container news_section_container">
+    @if (Model != null)
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="title-news">@Model.Title</h2>
+                <hr />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                @Html.Raw(Model.Detail)
+            </div>
+        </div>
+    }
+</div>
+
+
+
+

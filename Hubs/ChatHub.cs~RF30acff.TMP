@@ -1,0 +1,44 @@
+﻿using Microsoft.AspNet.SignalR;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Web;
+using ungdunghocthongminh.Models;
+using ungdunghocthongminh.Models.EF;
+
+namespace ungdunghocthongminh.Hubs
+{
+    public class ChatHub : Hub
+    {
+        private ApplicationDbContext _context = new ApplicationDbContext();
+        public async Task SendMessage(string userName, string message, string filePath = null)
+        {
+            var chatMessage = new ChatMessage
+            {
+                UserName = userName,
+                Message = message,
+                FilePath = filePath,
+                Timestamp = DateTime.Now
+            };
+
+            _context.ChatMessages.Add(chatMessage);
+            await _context.SaveChangesAsync();
+
+            // Log gửi tin nhắn
+            Console.WriteLine($"User: {userName}, Message: {message}, File: {filePath}");
+
+            Clients.All.ReceiveMessage(userName, message, filePath);
+        }
+
+
+        public List<ChatMessage> GetChatHistory()
+        {
+            // Lấy 50 tin nhắn mới nhất
+            return _context.ChatMessages
+                .OrderByDescending(m => m.Timestamp)
+                .Take(50)
+                .ToList();
+        }
+    }
+}

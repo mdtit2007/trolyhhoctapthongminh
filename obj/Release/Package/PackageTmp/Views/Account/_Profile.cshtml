@@ -1,0 +1,54 @@
+﻿@model ungdunghocthongminh.Models.CreateAccountViewModel
+@{
+    ViewBag.Title = "Profile";
+}
+
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+                <h1 class="mb-3">Thông Tin Học Sinh</h1>
+                <p></p>
+            </div>
+            <div class="container-fluid px-2">
+                <!-- Student Info Card -->
+                <div class="student-card">
+                    <div class="row">
+                        <div class="col-12 profile-section">
+                            <img src="@Model.Image" alt="" class="profile-img mb-2">
+                            <div><a href="#" class="text-primary small">Xem chi tiết</a></div>
+                        </div>
+                        <div class="col-12 info-section">
+                            <div class="row g-2">
+                                <div class="col-6">
+                                    <p><strong>MHS:</strong> @Model.MHS</p>
+                                    <p><strong>Họ tên:</strong> @Model.FullName</p>
+                                    <p><strong>Giới tính:</strong> @Model.GTinh</p>
+                                    <p><strong>Ngày sinh:</strong> @(Model.NgaySinh?.ToString("dd/MM/yyyy") ?? "Chưa có thông tin")</p>
+                                    <p><strong>Nơi sinh:</strong> @Model.Address</p>
+                                </div>
+                                <div class="col-6">
+                                    <p><strong>SDT:</strong> @Model.Phone</p>
+                                    <p><strong>Email:</strong> @Model.Email</p>
+                                    <p><strong>Lớp:</strong> @Model.lop</p>
+                                    <p><strong>Khóa:</strong> @Model.KH</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+              
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="container-xxl py-5">
+        <div class="container text-center">
+            <h2>Hãy đăng nhập để xem thông tin cá nhân!</h2>
+        </div>
+    </div>
+}

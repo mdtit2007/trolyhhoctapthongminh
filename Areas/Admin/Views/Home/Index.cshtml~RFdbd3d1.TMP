@@ -1,0 +1,80 @@
+﻿<link href="~/Content/assest/css/trangtri.css" rel="stylesheet" />
+<div class="container-fluid">
+    <div class="row my-4">
+        <div class="col-md-12 text-center">
+            <h2 class="display-4 text-primary">🌟 Chào Mừng Đến Với Trang Quản Lý 🌟</h2>
+            <p class="lead text-muted">Tận hưởng trải nghiệm quản lý toàn diện và hiện đại!</p>
+        </div>
+    </div>
+    <div class="row">
+        <!-- Card 1 -->
+        <div class="col-md-4">
+            <div class="card shadow-lg">
+                <div class="card-body text-center">
+                    <i class="fas fa-calendar-alt fa-3x text-info mb-3"></i>
+                    <h5 class="card-title">Quản Lý Lịch Học</h5>
+                    <p class="card-text text-muted">Tạo và quản lý thời khóa biểu, nhắc nhở thông minh.</p>
+                    <a href="/admin/schedule" class="btn btn-info">Truy cập</a>
+                </div>
+            </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="col-md-4">
+            <div class="card shadow-lg">
+                <div class="card-body text-center">
+                    <i class="fas fa-book fa-3x text-success mb-3"></i>
+                    <h5 class="card-title">Kho Tài Liệu</h5>
+                    <p class="card-text text-muted">Quản lý tài liệu học tập, sách giáo khoa và bài giảng.</p>
+                    <a href="/admin/documents" class="btn btn-success">Truy cập</a>
+                </div>
+            </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="col-md-4">
+            <div class="card shadow-lg">
+                <div class="card-body text-center">
+                    <i class="fas fa-users fa-3x text-warning mb-3"></i>
+                    <h5 class="card-title">Cộng Đồng Học Tập</h5>
+                    <p class="card-text text-muted">Kết nối học sinh và giáo viên qua nền tảng học tập.</p>
+                    <a href="/admin/community" class="btn btn-warning">Truy cập</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- New Section for Fish Tank and Bubbles -->
+    <div class="row mt-5">
+        <!-- Card 4 - Fish Tank -->
+        <div class="col-md-6">
+            <div class="card shadow-lg">
+                <div class="card-body text-center">
+                    <div class="fish-tank">
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                        <!-- Additional bubbles here -->
+                    </div>
+                    <h5 class="card-title">Bể Cá</h5>
+                    <p class="card-text text-muted">Trải nghiệm thú vị với bể cá và hạt bay nhảy.</p>
+                </div>
+            </div>
+        </div>
+        <!-- Card 5 - More Effects -->
+        <div class="col-md-6">
+            <div class="card shadow-lg">
+                <div class="card-body text-center">
+                    <div class="fish-tank">
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                        <!-- Additional bubbles here -->
+                    </div>
+                    <h5 class="card-title">Bể Cá</h5>
+                    <p class="card-text text-muted">Trải nghiệm thú vị với bể cá và hạt bay nhảy.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,52 @@
+﻿@model IEnumerable<ungdunghocthongminh.Models.EF.Schedule>
+
+<div class="schedule-table-wrapper">
+    <table class="schedule-table">
+        <tr>
+            <th>Ca học</th>
+            <th class="day">Thứ 2</th>
+            <th class="day">Thứ 3</th>
+            <th class="day">Thứ 4</th>
+            <th class="day">Thứ 5</th>
+            <th class="day">Thứ 6</th>
+            <th class="day">Thứ 7</th>
+            <th class="day">Chủ nhật</th>
+        </tr>
+        <tr>
+            <td></td>
+            @for (int day = 1; day <= 7; day++)
+            {
+                // Tính ngày dựa trên ngày đầu tuần và offset
+                DateTime dateForDay = DateTime.Now.AddDays(-(int)DateTime.Now.DayOfWeek + day + ViewBag.WeekOffset * 7);
+                <td class="date-column">@dateForDay.ToString("dd/MM")</td>
+            }
+        </tr>
+
+        @for (int i = 0; i < 2; i++)  // Sáng (i=0), Chiều (i=1)
+        {
+            <tr>
+                <td>@((i == 0) ? "Sáng" : "Chiều")</td>
+
+                @for (int day = 1; day <= 7; day++) // Thứ 2 đến Chủ nhật
+                {
+                    <td class="day-column">
+                        @foreach (var item in Model.Where(x =>
+                            (int)x.Start.DayOfWeek == day &&
+                            ((i == 0 && x.Start.Hour < 12) || (i == 1 && x.Start.Hour >= 12)))
+                        )
+                        {
+                            <div class="class">
+                                <div class="title">@item.Title</div>
+                                <div>@item.ClassId</div>
+                                <div>Tiết: @item.Tiet</div>
+                                <div>Giờ: @item.Start.ToString("HH:mm") - @item.End.ToString("HH:mm")</div>
+                                <div>Phòng: @item.className</div>
+                                <div class="teacher">GV: @item.TeacherName</div>
+                            </div>
+                        }
+                    </td>
+                }
+            </tr>
+        }
+    </table>
+</div>

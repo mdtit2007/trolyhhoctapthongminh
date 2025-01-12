@@ -1,0 +1,55 @@
+﻿
+/* Đảm bảo form luôn căn giữa */
+.vh-100 {
+    height: 100vh; /* Chiều cao toàn màn hình */
+}
+
+.login-box {
+    width: 100%;
+    max-width: 400px; /* Giới hạn chiều rộng form */
+}
+
+.text-danger {
+    margin-top: 5px;
+    font-size: 0.875rem;
+}
+
+.brand-title img {
+    max-width: 200px;
+    height: auto;
+}
+
+.card {
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Tạo hiệu ứng đổ bóng nhẹ */
+}
+
+/* Responsive Styles */
+@media (max-width: 576px) {
+    .login-box {
+        padding: 0 15px;
+    }
+
+    .btn {
+        font-size: 0.875rem;
+    }
+
+    .login-box-msg {
+        font-size: 1rem;
+    }
+
+    .brand-title img {
+        max-width: 150px;
+    }
+}
+
+@media (min-width: 577px) and (max-width: 768px) {
+    .login-box {
+        width: 80%;
+    }
+
+    .brand-title img {
+        max-width: 180px;
+    }
+}
+
+

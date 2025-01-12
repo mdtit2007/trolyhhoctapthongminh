@@ -1,0 +1,101 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="student-info">
+    <div class="left">
+        <img alt="Student photo" src="https://storage.googleapis.com/a1aa/image/fGnDL1kBu4RrCqw8zFTfHrpkCNfQRSUlj7LT2LL63RAZWBgnA.jpg" />
+        <div class="details">
+            <p>MSSV: <span>2000410</span></p>
+            <p>Họ tên: <span>Đinh Văn Đức</span></p>
+            <p>Giới tính: <span>Nam</span></p>
+            <p>Ngày sinh: <span>07/02/2002</span></p>
+            <p>Nơi sinh: <span>Thái Bình</span></p>
+            <p>Lớp học: <span>K4428-CNT1</span></p>
+            <p>Khóa học: <span>44</span></p>
+            <p>Bậc đào tạo: <span>Đại học</span></p>
+            <p>Loại hình đào tạo: <span>Chính quy</span></p>
+            <p>Ngành: <span>Công nghệ thông tin</span></p>
+            <a href="#">Xem chi tiết</a>
+        </div>
+    </div>
+    @Html.Action("ScheduleCategory", "Schedule")
+        </div>
+ 
+
+<div class="menu">
+    <div class="item">
+        <i class="fas fa-briefcase"></i>
+        <p>Nhắc nhở</p>
+    </div>
+    <div class="item">
+        <i class="fas fa-chart-line"></i>
+        <p>Kết quả học tập</p>
+    </div>
+    <div class="item">
+        <i class="fas fa-calendar-week"></i>
+        <p>Lịch theo tuần</p>
+    </div>
+    <div class="item">
+        <i class="fas fa-calendar-week"></i>
+        <p>Tài Liệu</p>
+    </div>
+    <div class="item">
+        <i class="fas fa-calendar-week"></i>
+        <p>Thi thử</p>
+    </div>
+    <div class="item">
+        <i class="fas fa-calendar-week"></i>
+        <p>Chat GPT</p>
+    </div>
+
+
+</div>
+<div class="fs_menu_overlay"></div>
+<div class="hamburger_menu">
+    <div class="hamburger_close"><i class="fa fa-times" aria-hidden="true"></i></div>
+    <div class="hamburger_menu_content text-right">
+        <ul class="menu_top_nav">
+            @*<li class="menu_item has-children">
+                    <a href="#">
+                        VND
+                        <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="menu_selection">
+                        <li><a href="#">cad</a></li>
+                        <li><a href="#">aud</a></li>
+                        <li><a href="#">eur</a></li>
+                        <li><a href="#">gbp</a></li>
+                    </ul>
+                </li>
+                <li class="menu_item has-children">
+                    <a href="#">
+                        Việt Nam
+                        <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="menu_selection">
+                        <li><a href="#">French</a></li>
+                        <li><a href="#">Italian</a></li>
+                        <li><a href="#">German</a></li>
+                        <li><a href="#">Spanish</a></li>
+                    </ul>
+                </li>
+                <li class="menu_item has-children">
+                    <a href="#">
+                        Tài Khoản
+                        <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="menu_selection">
+                        <li><a href="/account/login"><i class="fa fa-sign-in" aria-hidden="true"></i>Đăng Nhập</a></li>
+                        <li><a href="/account/register"><i class="fa fa-user-plus" aria-hidden="true"></i>Đăng Ký</a></li>
+                    </ul>
+                </li>*@
+            <li class="menu_item"><a href="/">Trang Chủ</a></li>
+            <li class="menu_item"><a href="/posts/gioi-thieu">Giới Thiệu</a></li>
+            <li class="menu_item"><a href="/san-pham">Sản Phẩm</a></li>
+            @*<li class="menu_item"><a href="/posts/khuyen-mai">Khuyến Mãi</a></li>*@
+            <li class="menu_item"><a href="/tin-tuc">Tin Tức</a></li>
+            <li class="menu_item"><a href="/lien-he">Liên Hệ</a></li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,122 @@
+﻿@model ungdunghocthongminh.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Đăng Ký";
+    Layout = "~/Views/Shared/_LayoutOut.cshtml";
+}
+<link href="~/Content/assest/styles/bootstrap4/banner.css" rel="stylesheet" />
+<link href="~/Content/dangky.css" rel="stylesheet" />
+<div class="container">
+    <div class="register-box">
+        <div class="card card-outline card-primary">
+            <div class="card-header text-center">
+                <a href="/">
+                    <img src="~/Content/assest/img/logo.jpg" alt="Logo" />
+                </a>
+            </div>
+            <div class="card-body">
+                <p class="login-box-msg">Đăng ký Để Cùng Học Tập Ngay Nào!!! </p>
+                @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+                    <!-- Full Name -->
+                    <div class="input-group mb-3">
+                        @Html.TextBoxFor(m => m.FullName, new { @class = "form-control", placeholder = "Nhập họ và tên..." })
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-user"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="input-group mb-3">
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Nhập Email..." })
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="input-group mb-3">
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Nhập mật khẩu", id = "passwordField" })
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock" id="lockIconPassword"></span>
+                                <span class="fas fa-eye" id="togglePassword" style="cursor: pointer; display: none;"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div class="input-group mb-3">
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "Xác nhận mật khẩu", id = "confirmPasswordField" })
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock" id="lockIconConfirmPassword"></span>
+                                <span class="fas fa-eye" id="toggleConfirmPassword" style="cursor: pointer; display: none;"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="row">
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary btn-block">Đăng Ký</button>
+                        </div>
+                    </div>
+                }
+                <a href="/account/login" class="text-center">Tôi đã có tài khoản</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Password visibility toggle for Password field
+    const passwordField = document.getElementById('passwordField');
+    const lockIconPassword = document.getElementById('lockIconPassword');
+    const togglePassword = document.getElementById('togglePassword');
+
+    passwordField.addEventListener('input', function () {
+        if (passwordField.value.length > 0) {
+            lockIconPassword.style.display = 'none'; // Ẩn khóa khi người dùng nhập
+            togglePassword.style.display = 'inline'; // Hiển thị mắt
+        } else {
+            lockIconPassword.style.display = 'inline'; // Hiển thị khóa khi mật khẩu trống
+            togglePassword.style.display = 'none'; // Ẩn mắt
+        }
+    });
+
+    togglePassword.addEventListener('click', function () {
+        const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordField.setAttribute('type', type);
+        this.classList.toggle('fa-eye');
+        this.classList.toggle('fa-eye-slash');
+    });
+
+    // Password visibility toggle for Confirm Password field
+    const confirmPasswordField = document.getElementById('confirmPasswordField');
+    const lockIconConfirmPassword = document.getElementById('lockIconConfirmPassword');
+    const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
+
+    confirmPasswordField.addEventListener('input', function () {
+        if (confirmPasswordField.value.length > 0) {
+            lockIconConfirmPassword.style.display = 'none'; // Ẩn khóa khi người dùng nhập
+            toggleConfirmPassword.style.display = 'inline'; // Hiển thị mắt
+        } else {
+            lockIconConfirmPassword.style.display = 'inline'; // Hiển thị khóa khi mật khẩu trống
+            toggleConfirmPassword.style.display = 'none'; // Ẩn mắt
+        }
+    });
+
+    toggleConfirmPassword.addEventListener('click', function () {
+        const type = confirmPasswordField.getAttribute('type') === 'password' ? 'text' : 'password';
+        confirmPasswordField.setAttribute('type', type);
+        this.classList.toggle('fa-eye');
+        this.classList.toggle('fa-eye-slash');
+    });
+</script>

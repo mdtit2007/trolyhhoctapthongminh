@@ -1,0 +1,50 @@
+﻿@model PagedList.PagedList<ungdunghocthongminh.Models.EF.Advise>
+@using PagedList.Mvc;
+@using PagedList;
+@{
+    ViewBag.Title = "Tư Vấn Nghề Nghiệp";
+}
+
+
+
+<link href="~/Content/chuyendoiso.css" rel="stylesheet" />
+<div class="container news_section_container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="title-news text-center">Tư Vấn Nghề Nghiệp</h1>
+            <hr />
+        </div>
+    </div>
+
+    @if (Model != null && Model.Any())
+    {
+        foreach (var item in Model)
+        {
+            <div class="row row_item_news">
+                <div class="col-md-4">
+                    <div class="blog_item">
+                        <div class="blog_background">
+                            <img src="@item.Image" class="img-fluid" />
+                        </div>
+                        <div class="blog_content d-flex flex-column align-items-center justify-content-center text-center">
+                            <h4 class="blog_title">@item.Title</h4>
+                            <span class="blog_meta">@item.CreatedDate | @item.CreatedDate.ToString("dd/MM/yyyy")</span>
+                            <a class="blog_more" href="/@item.Alias-o@(item.Id)">Đọc Thêm</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="content-box">
+                        <h3><a href="/@item.Alias-o@(item.Id)" title="@item.Title">@item.Title</a></h3>
+                        <div class="description box">
+                            @item.Description
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="pagination-container">
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+        </div>
+    }
+</div>

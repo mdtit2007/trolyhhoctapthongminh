@@ -1,0 +1,58 @@
+﻿/* Cấu hình cho blog_item */
+.blog_item {
+    position: relative;
+    overflow: hidden;
+    width: 100%; /* Đảm bảo blog_item chiếm 100% chiều rộng của container */
+    max-width: 200px; /* Giới hạn kích thước tối đa */
+    margin: 0 auto; /* Căn giữa blog_item trong container */
+}
+
+    /* Cấu hình kích thước ảnh */
+    .blog_item img {
+        width: 100%; /* Đảm bảo ảnh chiếm toàn bộ chiều rộng của .blog_item */
+        height: auto; /* Giữ tỷ lệ ảnh */
+        object-fit: cover; /* Đảm bảo ảnh không bị biến dạng */
+    }
+
+/* Ẩn phần blog_content khi không hover */
+.blog_content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Căn giữa nội dung theo cả chiều ngang và chiều dọc */
+    opacity: 0;
+    visibility: hidden;
+    text-align: center;
+    width: 90%; /* Chiều rộng của phần nội dung */
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Khi hover vào blog_item thì hiển thị blog_content */
+.blog_item:hover .blog_content {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Cấu hình cho các phần tử bên trong blog_content */
+.blog_title, .blog_meta, .blog_more {
+    color: white; /* Màu chữ cho phần nội dung khi hiện */
+    margin: 5px 0;
+    font-size: 14px; /* Cỡ chữ mặc định */
+}
+
+/* Điều chỉnh lại font-size cho các màn hình nhỏ hơn */
+@media (max-width: 768px) {
+    .blog_item {
+        max-width: 100%; /* Blog_item sẽ chiếm toàn bộ chiều rộng */
+    }
+
+    .blog_title, .blog_meta, .blog_more {
+        font-size: 12px; /* Giảm cỡ chữ cho màn hình nhỏ */
+    }
+}
+
+@media (max-width: 480px) {
+    .blog_title, .blog_meta, .blog_more {
+        font-size: 10px; /* Giảm cỡ chữ thêm nữa cho màn hình nhỏ hơn */
+    }
+}

@@ -1,0 +1,203 @@
+﻿@{
+    ViewBag.Title = "Chat";
+}
+<div class="container py-5" id="chatApp">
+    <!-- Login Section -->
+    <div id="divLogin" class="card mx-auto shadow-lg" style="max-width: 400px;">
+        <div class="card-body text-center">
+            <h3 class="mb-4">Đăng nhập để trò chuyện với mọi người!</h3>
+            <input type="text" id="txtName" class="form-control mb-3" placeholder="Nhập họ và tên..." />
+            <button class="btn btn-primary w-100" id="btnLogin">Bắt đầu</button>
+        </div>
+    </div>
+
+    <!-- Chat Section -->
+    <div id="divChat" class="d-none">
+        <div class="card mx-auto shadow-lg" style="max-width: 600px; height: 80vh;">
+            <!-- Header -->
+            <div class="card-header bg-primary text-white text-center">
+                <h5 id="welcome" class="mb-0"></h5>
+            </div>
+
+            <!-- Messages Section -->
+            <div class="card-body overflow-auto" id="messageContainer" style="height: calc(100% - 130px);">
+                <ul id="contentMsg" class="list-unstyled"></ul>
+            </div>
+
+            <!-- Input Section -->
+            <div class="card-footer bg-light">
+                <div class="input-group">
+                    <input type="text" id="txtMessage" class="form-control" placeholder="Nhập tin nhắn..." />
+                    <input type="file" id="fileInput" class="form-control-file" style="display: none;" />
+                    <button class="btn btn-outline-secondary" id="btnUploadFile">📎</button>
+                    <button class="btn btn-primary" id="btnSend">Gửi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <style>
+        #contentMsg li {
+            margin-bottom: 15px;
+        }
+
+        #contentMsg .chat-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+
+        #contentMsg .chat-message {
+            max-width: 75%;
+            border-radius: 20px;
+            padding: 10px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        #contentMsg .bg-primary {
+            color: white;
+            border-radius: 20px 20px 0 20px;
+        }
+
+        #contentMsg .bg-light {
+            color: black;
+            border-radius: 20px 20px 20px 0;
+        }
+
+        .chat-row {
+            display: flex;
+            align-items: center;
+        }
+
+            .chat-row.reverse {
+                flex-direction: row-reverse;
+            }
+
+                .chat-row.reverse .chat-avatar {
+                    margin-right: 0;
+                    margin-left: 10px;
+                }
+    </style>
+
+
+@section scripts {
+    <script>
+        function show() {
+            $('#divLogin').addClass('d-none');
+            $('#divChat').removeClass('d-none');
+        }
+
+        function getRandomAvatar() {
+            // URL ảnh avatar hoạt hình dễ thương ngẫu nhiên (danh sách tùy chỉnh)
+            const avatars = [
+                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3yRVq1Vuav8TpCJ1uQVFJul6Tl6L7BwslyA&s', // Hoạt hình 1
+                'https://cellphones.com.vn/sforum/wp-content/uploads/2024/02/avatar-anh-meo-cute-27.jpg', // Hoạt hình 2
+                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxdKJcORdDXtpWFreJOH8Dyv5zlVMH-JCeWqCTigaovk4-nY9JEvCNqxSaRKd7HxqxG20&usqp=CAU', // Hoạt hình 3
+                'https://cellphones.com.vn/sforum/wp-content/uploads/2024/02/avatar-anh-meo-cute-39.jpg', // Hoạt hình 4
+                'https://cellphones.com.vn/sforum/wp-content/uploads/2024/02/avatar-anh-meo-cute-30.jpg', // Hoạt hình 5
+            ];
+            return avatars[Math.floor(Math.random() * avatars.length)];
+        }
+
+        $(function () {
+            var chat = $.connection.chat;
+
+            loadClient(chat);
+
+            $.connection.hub.start().done(function () {
+                $('#btnLogin').click(function () {
+                    var name = $('#txtName').val().trim();
+                    if (name) {
+                        var avatar = getRandomAvatar(); // Lấy avatar ngẫu nhiên
+                        localStorage.setItem('chatUserName', name);
+                        localStorage.setItem('chatUserAvatar', avatar); // Lưu avatar cho người dùng
+                        chat.server.connect(name); // Kết nối với server
+                        $('#welcome').html("Xin chào: " + name);
+                        $('#hName').val(name);
+                        chat.server.loadMessages();
+                        show();
+                    } else {
+                        alert('Vui lòng nhập họ và tên!');
+                    }
+                });
+
+                $('#btnSend').click(function () {
+                    var msg = $('#txtMessage').val();
+                    var fileInput = $('#fileInput')[0];
+                    var filePath = null;
+
+                    if (fileInput.files.length > 0) {
+                        var file = fileInput.files[0];
+                        var formData = new FormData();
+                        formData.append('file', file);
+
+                        $.ajax({
+                            url: '/Chat/UploadFile',
+                            type: 'POST',
+                            data: formData,
+                            processData: false,
+                            contentType: false,
+                            async: false,
+                            success: function (response) {
+                                filePath = response.filePath;
+                            }
+                        });
+                    }
+
+                    var name = localStorage.getItem('chatUserName');
+                    chat.server.message(name, msg, filePath);
+                    $('#txtMessage').val('').focus();
+                });
+
+                $('#btnUploadFile').click(function () {
+                    $('#fileInput').click();
+                });
+            });
+        });
+
+        function loadClient(chat) {
+            chat.client.message = function (name, msg, filePath) {
+                var currentUser = localStorage.getItem('chatUserName');
+                var isCurrentUser = (currentUser === name);
+                var avatar = isCurrentUser ? localStorage.getItem('chatUserAvatar') : getRandomAvatar();
+                var content = `
+                        <li class="chat-row ${isCurrentUser ? 'reverse' : ''}">
+                            <img src="${avatar}" alt="${name}" class="chat-avatar">
+                            <div class="chat-message ${isCurrentUser ? 'bg-primary text-white' : 'bg-light text-dark'}">
+                                <strong>${name || "Người dùng"}</strong>: ${msg || "(Không có nội dung)"}
+                                ${filePath ? `<br><a href="${filePath}" target="_blank" class="text-info">Tải file</a>` : ''}
+                            </div>
+                        </li>
+                    `;
+                $('#contentMsg').append(content);
+                $('#messageContainer').scrollTop($('#messageContainer')[0].scrollHeight);
+            };
+
+            chat.client.loadMessages = function (messages) {
+                $('#contentMsg').empty();
+                messages.forEach(function (msg) {
+                    var avatar = getRandomAvatar();
+                    var currentUser = localStorage.getItem('chatUserName');
+                    var isCurrentUser = (currentUser === msg.UserName);
+                    if (isCurrentUser) avatar = localStorage.getItem('chatUserAvatar');
+
+                    var content = `
+                            <li class="chat-row ${isCurrentUser ? 'reverse' : ''}">
+                                <img src="${avatar}" alt="${msg.UserName}" class="chat-avatar">
+                                <div class="chat-message ${isCurrentUser ? 'bg-primary text-white' : 'bg-light text-dark'}">
+                                    <strong>${msg.UserName || "Người dùng"}</strong>: ${msg.Message || "(Không có nội dung)"}
+                                    ${msg.FilePath ? `<br><a href="${msg.FilePath}" target="_blank" class="text-info">Tải file</a>` : ''}
+                                </div>
+                            </li>
+                        `;
+                    $('#contentMsg').append(content);
+                });
+                $('#messageContainer').scrollTop($('#messageContainer')[0].scrollHeight);
+            };
+        }
+    </script>
+}

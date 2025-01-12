@@ -1,0 +1,73 @@
+﻿@model IEnumerable<ungdunghocthongminh.Models.EF.Schedule>
+@{
+    // Tính ngày đầu tuần (Thứ 2 là ngày đầu tuần)
+    DateTime startOfWeek = DateTime.Now.AddDays(-(int)DateTime.Now.DayOfWeek + (int)DayOfWeek.Monday + (ViewBag.WeekOffset ?? 0) * 7);
+}
+
+<div class="schedule-table-wrapper">
+    <table class="schedule-table">
+        <tr>
+            <th>Ca học</th>
+            @for (int day = 0; day < 7; day++) // 0 đến 6 để lặp từ Thứ 2 đến Chủ nhật
+            {
+                // Lấy ngày hiện tại của từng cột
+                DateTime dateForDay = startOfWeek.AddDays(day);
+                <th class="day">@("Thứ " + (day + 2)) <br /> @dateForDay.ToString("dd/MM/yyyy")</th>
+            }
+        </tr>
+
+        @for (int i = 0; i < 2; i++)  // Sáng (i=0), Chiều (i=1)
+        {
+            <tr class="schedule-row">
+                <td class="sang">@((i == 0) ? "Sáng" : "Chiều")</td>
+
+                @for (int day = 1; day <= 7; day++) // Thứ 2 đến Chủ nhật
+                {
+                    <td class="day-column">
+                        @foreach (var item in Model.Where(x =>
+                            (int)x.Start.DayOfWeek == day &&
+                            ((i == 0 && x.Start.Hour < 12) || (i == 1 && x.Start.Hour >= 12)))
+                        )
+                        {
+                            // Xác định lớp CSS theo ScheduleCategoryId
+                            string itemClass = "";
+                            if (item.ScheduleCategoryId == 1) // Lịch học
+                            {
+                                itemClass = "theory";
+                            }
+                            else if (item.ScheduleCategoryId == 2) // Lịch thi
+                            {
+                                itemClass = "exam";
+                            }
+                            else if (item.ScheduleCategoryId == 5) // Sự kiện khác
+                            {
+                                itemClass = "practice";
+                            }
+                            else
+                            {
+                                itemClass = "suspend"; // Nếu có trạng thái tạm ngưng
+                            }
+
+                            <div class="class schedule-item @itemClass">
+                                <div class="title">@item.Title</div>
+                                <div>@item.ClassId</div>
+                                <div>Tiết: @item.Tiet</div>
+                                <div>Giờ: @item.Start.ToString("HH:mm") - @item.End.ToString("HH:mm")</div>
+                                <div>Phòng: @item.className</div>
+                                <div class="teacher">GV: @item.TeacherName</div>
+                            </div>
+                        }
+                    </td>
+                }
+            </tr>
+        }
+    </table>
+</div>
+<style>
+    .schedule-row {
+        color: #000000;
+    }
+    .sang{
+        background-color:#f7f85e
+    }
+</style>

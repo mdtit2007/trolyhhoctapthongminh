@@ -1,0 +1,16 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace ungdunghocthongminh.Models.EF
+{
+    public class Class:CommonAbstract
+    {
+        public int Id { get; set; }
+        public string NameClass { get; set; }
+        
+        public string DescriptionClass { get; set; }
+        public ICollection<Exam> Exams { get; set; }
+    }
+}

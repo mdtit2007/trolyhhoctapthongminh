@@ -1,0 +1,154 @@
+﻿  <!-- Sidebar -->
+<div class="sidebar">
+    <!-- Sidebar user (optional) -->
+    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        @*<div class="image">
+            <img src="~/Content/dd.jpg"width="160"height="160" class="img-circle elevation-2" alt="User Image">
+        </div>*@
+        @if (Request.IsAuthenticated)
+        {
+            <div class="info">
+                <a href="#" class="d-block"><i class="nav fa-fas-user"></i>Xin Chào:@User.Identity.Name</a>
+            </div>
+        }
+
+    </div>
+
+ 
+
+    <!-- Sidebar Menu -->
+    <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <!-- Add icons to the links using the .nav-icon class
+    with font-awesome or any other icon font library -->
+            <li class="nav-item">
+                <a href="/admin/Category" class="nav-link">
+                    <i class="nav-icon fas fa-book"></i>
+                    <p>
+                        Danh Mục
+                       
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-calendar-alt"></i>
+                    <p>
+                        Quản lý Lịch học
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="/admin/ScheduleCategory" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Hình thức</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/admin/Schedule" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Lịch Học</p>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-file-alt"></i>
+                    <p>
+                        Quản lý Tài Liệu
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="/admin/DocumentCategory" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Danh Mục Tài Liệu</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/admin/Document" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Tài Liệu</p>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-graduation-cap"></i>
+                    <p>
+                        Quản lý Học tập
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="/admin/DigitalConversion" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Chuyển đổi số</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/admin/Advise" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Tư vấn nghề nghiệp</p>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="/admin/exam" class="nav-link">
+                    <i class="nav-icon fas fa-clipboard-check"></i>
+                    <p>
+                        Thi Thử
+
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/admin/account" class="nav-link">
+                    <i class="nav-icon fas fa-user-circle"></i>
+                    <p>
+                        Tài khoản
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/admin/role" class="nav-link">
+                    <i class="nav-icon fas fa-key"></i>
+                    <p>
+                        Quyền
+                    </p>
+                </a>
+            </li>
+
+
+            <li class="nav-item">
+                <a href="javascript:document.getElementById('logOffForm').submit()" class="nav-link">
+                    <i class="nav-icon fas fa-sign-out-alt"></i>
+                    <p>
+                        Đăng xuất
+                     
+                    </p>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <!-- /.sidebar-menu -->
+</div>
+<!-- /.sidebar -->
+
+@if (Request.IsAuthenticated)
+{
+    <div style="display:none">
+        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { @id = "logOffForm" }))
+        {
+            @Html.AntiForgeryToken()}
+    </div>}
+

@@ -1,0 +1,90 @@
+﻿<head>
+    <title>Lịch học, lịch thi theo tuần</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="~/Content/assest/styles/bootstrap4/bootstrap.min.css">
+    <link href="~/Content/assest/plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="~/Content/assest/plugins/OwlCarousel2-2.2.1/owl.carousel.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/assest/plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/assest/plugins/OwlCarousel2-2.2.1/animate.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/assest/plugins/jquery-ui-1.12.1.custom/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/assest/styles/main_styles.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/assest/styles/responsive.css">
+    <link href="~/Content/assest/styles/lichhoc.css" rel="stylesheet" />
+    <!-- Thêm Flatpickr CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="filters">
+            <label><input type="radio" name="filter" checked> Tất cả</label>
+            <label><input type="radio" name="filter"> Lịch học</label>
+            <label><input type="radio" name="filter"> Lịch thi</label>
+            <div class="date-picker">
+                <input type="text" value="18/11/2024">
+                <button><i class="fas fa-calendar-alt"></i></button>
+            </div>
+            <div class="buttons">
+                <button><i class="fas fa-calendar-alt"></i> Hiện tại</button>
+                <button><i class="fas fa-arrow-left"></i> Trở về</button>
+                <button><i class="fas fa-arrow-right"></i> Tiếp</button>
+            </div>
+        </div>
+        
+        <div class="legend">
+            <div><span class="theory"></span> Lịch học lý thuyết</div>
+            <div><span class="practice"></span> Lịch học thực hành</div>
+            <div><span class="online"></span> Lịch học trực tuyến</div>
+            <div><span class="exam"></span> Lịch thi</div>
+            <div><span class="suspend"></span> Lịch tạm ngưng</div>
+        </div>
+    </div>
+
+    <!-- Thêm các thư viện JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script> <!-- Để xử lý ngày tháng -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script> <!-- Thư viện Flatpickr -->
+
+    <script>
+        $(document).ready(function () {
+            // Khởi tạo Flatpickr cho input ngày
+            flatpickr(".date-picker input", {
+                dateFormat: "d/m/Y",
+                defaultDate: "18/11/2024",  // Ngày mặc định
+                onChange: function (selectedDates, dateStr, instance) {
+                    $(".date-picker input").val(dateStr); // Cập nhật giá trị input khi chọn ngày
+                }
+            });
+
+            // Xử lý sự kiện "Hiện tại"
+            $("button:contains('Hiện tại')").click(function () {
+                var today = new Date();
+                var day = today.getDate().toString().padStart(2, '0');
+                var month = (today.getMonth() + 1).toString().padStart(2, '0');
+                var year = today.getFullYear();
+                $(".date-picker input").val(`${day}/${month}/${year}`);
+            });
+
+            // Xử lý sự kiện "Trở về" (chuyển về tuần trước)
+            $("button:contains('Trở về')").click(function () {
+                var currentDate = $(".date-picker input").val();
+                var currentDateObj = moment(currentDate, "DD/MM/YYYY");
+                var previousWeek = currentDateObj.subtract(1, 'week').format("DD/MM/YYYY");
+                $(".date-picker input").val(previousWeek);
+            });
+
+            // Xử lý sự kiện "Tiếp" (chuyển đến tuần tiếp theo)
+            $("button:contains('Tiếp')").click(function () {
+                var currentDate = $(".date-picker input").val();
+                var currentDateObj = moment(currentDate, "DD/MM/YYYY");
+                var nextWeek = currentDateObj.add(1, 'week').format("DD/MM/YYYY");
+                $(".date-picker input").val(nextWeek);
+            });
+
+            // Sự kiện click vào button "fa-calendar-alt"
+            $("button i.fas.fa-calendar-alt").click(function () {
+                // Khi click vào icon, hiển thị lịch
+                $(".date-picker input").flatpickr().open();
+            });
+        });
+    </script>
+</body>

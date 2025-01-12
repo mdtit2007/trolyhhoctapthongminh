@@ -1,0 +1,47 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using ungdunghocthongminh.Models;
+using ungdunghocthongminh.Models.EF;
+
+namespace ungdunghocthongminh.Controllers
+{
+    public class ScheduleController : Controller
+    {
+        private ApplicationDbContext db = new ApplicationDbContext();
+        // GET: Schedule
+        public ActionResult Index()
+        {
+            return View();
+        }
+        public ActionResult PartialSchedule(int weekOffset = 0)
+        {
+            // Tính toán ngày bắt đầu của tuần (Thứ 2) trong tuần hiện tại
+            DateTime today = DateTime.Now;
+            int diff = today.DayOfWeek - DayOfWeek.Monday;
+            DateTime startOfWeek = today.AddDays(-diff).Date; // Thứ 2 của tuần này
+
+            // Cộng hoặc trừ 7 ngày theo weekOffset
+            startOfWeek = startOfWeek.AddDays(weekOffset * 7);
+
+            // Lấy ngày kết thúc của tuần (Chủ nhật)
+            DateTime endOfWeek = startOfWeek.AddDays(6);
+
+            // Lấy các lịch học trong tuần từ startOfWeek đến endOfWeek
+            var items = db.Schedules
+                          .Where(x => x.Start >= startOfWeek && x.Start <= endOfWeek)
+                          .ToList();
+
+            // Trả về PartialView với danh sách lịch học
+            ViewBag.WeekOffset = weekOffset;
+            ViewBag.StartOfWeek = startOfWeek.ToString("dd/MM/yyyy"); // Truyền thông tin ngày bắt đầu tuần
+            ViewBag.EndOfWeek = endOfWeek.ToString("dd/MM/yyyy"); // Truyền thông tin ngày kết thúc tuần
+
+            return PartialView("_PartialSchedule", items);
+        }
+
+
+    }
+}

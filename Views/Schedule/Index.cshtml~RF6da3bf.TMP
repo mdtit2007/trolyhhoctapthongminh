@@ -1,0 +1,113 @@
+﻿<html>
+<head>
+    <title>Lịch học, lịch thi theo tuần</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="~/Content/assest/styles/bootstrap4/bootstrap.min.css">
+    <link href="~/Content/assest/plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="~/Content/assest/plugins/OwlCarousel2-2.2.1/owl.carousel.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/assest/plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/assest/plugins/OwlCarousel2-2.2.1/animate.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/assest/plugins/jquery-ui-1.12.1.custom/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/assest/styles/main_styles.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/assest/styles/responsive.css">
+    <link href="~/Content/assest/styles/ungdung.css" rel="stylesheet" />
+    <link href="~/Content/assest/styles/lichhoc.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div class="container">
+
+        <div class="filters">
+            <label><input type="radio" name="filter" checked> Tất cả</label>
+            <label><input type="radio" name="filter"> Lịch học</label>
+            <label><input type="radio" name="filter"> Lịch thi</label>
+            <div class="date-picker">
+                <input type="text" value="18/11/2024">
+                <button><i class="fas fa-calendar-alt"></i></button>
+            </div>
+            <div class="buttons">
+                <button><i class="fas fa-calendar-alt"></i> Hiện tại</button>
+                <button><i class="fas fa-print"></i> In lịch</button>
+                <button><i class="fas fa-arrow-left"></i> Trở về</button>
+                <button><i class="fas fa-arrow-right"></i> Tiếp</button>
+            </div>
+        </div>
+        <table class="schedule-table">
+            <thead>
+                <tr>
+                    <th>Ca học</th>
+                    <th>Thứ 2<br>11/11/2024</th>
+                    <th>Thứ 3<br>12/11/2024</th>
+                    <th>Thứ 4<br>13/11/2024</th>
+                    <th>Thứ 5<br>14/11/2024</th>
+                    <th>Thứ 6<br>15/11/2024</th>
+                    <th>Thứ 7<br>16/11/2024</th>
+                    <th>Chủ nhật<br>17/11/2024</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Sáng</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Chiều</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Tối</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="legend">
+            <div><span class="theory"></span> Lịch học lý thuyết</div>
+            <div><span class="practice"></span> Lịch học thực hành</div>
+            <div><span class="online"></span> Lịch học trực tuyến</div>
+            <div><span class="exam"></span> Lịch thi</div>
+            <div><span class="suspend"></span> Lịch tạm ngưng</div>
+        </div>
+    </div>
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+<script>
+    document.querySelector('.date-picker button').addEventListener('click', function () {
+        const input = document.querySelector('.date-picker input');
+        // Cập nhật input với ngày được chọn
+        const date = new Date();
+        input.value = date.toLocaleDateString('en-GB'); // Cập nhật ngày hiện tại
+    });
+
+    document.querySelector('.buttons button:nth-child(4)').addEventListener('click', function () {
+        // Logic chuyển tuần sau
+        // Cập nhật ngày vào bảng lịch
+    });
+
+    document.querySelector('.buttons button:nth-child(3)').addEventListener('click', function () {
+        // Logic quay lại tuần trước
+        // Cập nhật ngày vào bảng lịch
+    });
+
+</script>

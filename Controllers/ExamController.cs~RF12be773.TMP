@@ -1,0 +1,41 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using ungdunghocthongminh.Models;
+
+namespace ungdunghocthongminh.Controllers
+{
+    public class ExamController : Controller
+    {
+        private ApplicationDbContext db =new ApplicationDbContext();
+        // GET: Exam
+        public ActionResult Index()
+        {
+            var items = db.Exams.OrderBy(x => x.Id).ToList();
+
+            return View(items);
+        }
+        public ActionResult ExamCategory(int id, string alias)
+        {
+            var itens = db.Exams.ToList();
+            if (id > 0)
+            {
+                itens = db.Exams.Where(x => x.DocumentCategoryId == id).ToList();
+            }
+            var cate = db.DocumentCategories.Find(id);
+            if (cate != null)
+            {
+                ViewBag.CateName = cate.Title;
+            }
+            ViewBag.CateId = id;
+            return View(itens);
+        }
+        public ActionResult Detail(int id)
+        {
+            var item = db.Exams.Find(id);
+            return View(item);
+        }
+    }
+}

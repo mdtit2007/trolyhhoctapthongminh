@@ -1,0 +1,104 @@
+﻿@{
+    ViewBag.Title = "Trang Quản Lý Học Thông Minh";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section naviheader{
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin" class="nav-link">Trang chủ</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/home" class="nav-link">THPT PHÙ LƯU</a>
+        </li>
+    </ul>
+}
+
+<div class="container-fluid">
+    <!-- Header -->
+    <div class="row my-4 animate__animated animate__fadeIn">
+        <div class="col-md-12 text-center">
+            <h2 class="display-4 text-primary">🌟 Chào Mừng Đến Với Trang Quản Lý 🌟</h2>
+            <p class="lead text-muted">Tận hưởng trải nghiệm quản lý toàn diện và hiện đại!</p>
+        </div>
+    </div>
+
+    <!-- Cards Section -->
+    <div class="row">
+        <div class="col-md-4 col-sm-12 mb-4">
+            <div class="card shadow-lg hover-card">
+                <div class="card-body text-center">
+                    <i class="fas fa-calendar-alt fa-3x text-info mb-3"></i>
+                    <h5 class="card-title">Quản Lý Lịch Học</h5>
+                    <p class="card-text text-muted">Tạo và quản lý thời khóa biểu, nhắc nhở thông minh.</p>
+                    <a href="/admin/schedule" class="btn btn-info">Truy cập</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-12 mb-4">
+            <div class="card shadow-lg hover-card">
+                <div class="card-body text-center">
+                    <i class="fas fa-book fa-3x text-success mb-3"></i>
+                    <h5 class="card-title">Kho Tài Liệu</h5>
+                    <p class="card-text text-muted">Quản lý tài liệu học tập, sách giáo khoa và bài giảng.</p>
+                    <a href="/admin/documents" class="btn btn-success">Truy cập</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-12 mb-4">
+            <div class="card shadow-lg hover-card">
+                <div class="card-body text-center">
+                    <i class="fas fa-users fa-3x text-warning mb-3"></i>
+                    <h5 class="card-title">Cộng Đồng Học Tập</h5>
+                    <p class="card-text text-muted">Kết nối học sinh và giáo viên qua nền tảng học tập.</p>
+                    <a href="/admin/community" class="btn btn-warning">Truy cập</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Decorative Section with Two Equal Columns -->
+    <div class="row mt-5">
+        <!-- Left Column -->
+        <div class="col-md-6 col-sm-12 mb-4">
+            <div class="card shadow-lg p-4 bg-light animate__animated animate__fadeInLeft hover-card">
+                <h5 class="text-primary"><i class="fas fa-lightbulb"></i> Chia sẻ kiến thức</h5>
+                <p class="text-muted">
+                    "Học tập không chỉ là thu nhận kiến thức, mà còn là chia sẻ ý tưởng và phát triển cộng đồng."
+                </p>
+                <div class="particle-container">
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="col-md-6 col-sm-12 mb-4">
+            <div class="card shadow-lg p-4 bg-light animate__animated animate__fadeInRight hover-card">
+                <h5 class="text-success"><i class="fas fa-chart-line"></i> Tăng trưởng vượt bậc</h5>
+                <p class="text-muted">
+                    "Học hỏi mỗi ngày là chìa khóa để vượt qua giới hạn và đạt được thành công."
+                </p>
+                <div class="particle-container">
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="mt-5 text-center text-muted">
+    <p>&copy; 2024 THPT Phù Lưu - Hệ Thống Quản Lý Học Thông Minh</p>
+</footer>
+
+<!-- CSS for Effects and Hover -->
+

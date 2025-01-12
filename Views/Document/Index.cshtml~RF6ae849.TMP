@@ -1,0 +1,54 @@
+﻿@model IEnumerable<ungdunghocthongminh.Models.EF.Document>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaiLieu</title>
+    <link href="~/Content/assest/css/tailieu.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        
+        <!-- Sidebar -->
+        @Html.Action("MenuLetf", "Menu")
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="product-header">
+                <span>Mặc Định</span>
+                <span>Xem 6</span>
+            </div>
+
+            <div class="product-grid">
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var item in Model)
+                    {
+                        <!-- Product 1 -->
+                        <div class="product-card">
+                            <img src="@item.Img" alt="@item.Title">
+                            <h4>@item.Title</h4>
+                        </div>
+                    }
+                }
+
+                <!-- Product 2 -->
+                <!--<div class="product-card">
+                <div class="discount-badge">-$20</div>
+                <img src="https://via.placeholder.com/200x200" alt="Latte Nóng">
+                <h4>Latte Nóng</h4>
+                <p class="price">55,000</p>
+            </div>-->
+                <!-- Product 3 -->
+                <!--<div class="product-card">
+                <div class="discount-badge">-$20</div>
+                <img src="https://via.placeholder.com/200x200" alt="Caramel Macchiato Đá">
+                <h4>Caramel Macchiato Đá</h4>
+                <p class="price">55,000</p>
+            </div>-->
+            </div>
+        </div>
+    </div>
+</body>
+</html>

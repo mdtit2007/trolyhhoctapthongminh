@@ -1,0 +1,109 @@
+﻿@{
+    ViewBag.Title = "Chat";
+}
+<div class="container" id="divLogin">
+    <input type="text" id="txtName" placeholder="Nhập họ và tên..." />
+    <button class="btn btn-success" id="btnLogin">Login</button>
+    <input type="hidden" id="hName" />
+</div>
+
+<div class="container" id="divChat">
+    <h2 id="welcome"></h2>
+    <input type="text" id="txtMessage" placeholder="Nhập tin nhắn..." />
+    <input type="file" id="fileInput" />
+    <button class="btn btn-success" id="btnSend">Gửi</button>
+</div>
+
+<div class="container">
+    <ul id="contentMsg"></ul>
+</div>
+
+@section scripts {
+    <script>
+        function show() {
+            $('#divLogin').hide();
+            $('#divChat').show();
+        }
+
+        function hide() {
+            $('#divChat').hide();
+            $('#divLogin').show();
+        }
+
+        $(function () {
+            $('#divChat').hide();
+            var chat = $.connection.chat;
+
+            loadClient(chat);
+
+            $.connection.hub.start().done(function () {
+                // Đăng nhập
+                $('#btnLogin').click(function () {
+                    var name = $('#txtName').val();
+                    chat.server.connect(name);
+                    $('#welcome').html("Xin chào: " + name);
+                    $('#hName').val(name);
+                    chat.server.loadMessages();
+                    show();
+                });
+
+                // Gửi tin nhắn
+                $('#btnSend').click(function () {
+                    var msg = $('#txtMessage').val();
+                    var fileInput = $('#fileInput')[0];
+                    var filePath = null;
+
+                    if (fileInput.files.length > 0) {
+                        var file = fileInput.files[0];
+                        var formData = new FormData();
+                        formData.append('file', file);
+
+                        // Upload file đến server
+                        $.ajax({
+                            url: '/Chat/UploadFile',
+                            type: 'POST',
+                            data: formData,
+                            processData: false,
+                            contentType: false,
+                            async: false,
+                            success: function (response) {
+                                filePath = response.filePath;
+                            }
+                        });
+                    }
+
+                    var name = $('#hName').val();
+                    chat.server.message(name, msg, filePath);
+                    $('#txtMessage').val('').focus();
+                });
+            });
+        });
+
+        function loadClient(chat) {
+            chat.client.message = function (name, msg, filePath) {
+                var content = "<li><strong>" + name + "</strong>: " + msg;
+                if (filePath) {
+                    content += ` <a href="${filePath}" target="_blank">Tải file</a>`;
+                }
+                content += "</li>";
+                $('#contentMsg').append(content);
+            };
+
+            chat.client.loadMessages = function (messages) {
+                $('#contentMsg').empty();
+                messages.forEach(function (msg) {
+                    var content = "<li><strong>" + msg.UserName + "</strong>: " + msg.Message;
+                    if (msg.FilePath) {
+                        content += ` <a href="${msg.FilePath}" target="_blank">Tải file</a>`;
+                    }
+                    content += "</li>";
+                    $('#contentMsg').append(content);
+                });
+            };
+
+            chat.client.connect = function (name) {
+                $('#hName').val(name);
+            };
+        }
+    </script>
+}

@@ -1,0 +1,119 @@
+﻿@model PagedList.PagedList<ungdunghocthongminh.Models.EF.DigitalConversion>
+@using PagedList.Mvc;
+@using PagedList;
+@{
+    ViewBag.Title = "Chuyển Đổi Số";
+}
+
+
+<style>
+    .news_section_container {
+        margin-top: 150px;
+    }
+
+    .title-news {
+        font-size: 35px;
+        padding: 15px 0;
+        margin-bottom: 25px;
+    }
+
+    .Img-box img {
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    .row_item_news {
+        margin-bottom: 20px;
+    }
+
+    .content-box a {
+        color: #000000;
+    }
+</style>
+<div class="container news_section_container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="title-news text-center">Chuyển Đổi Số</h1>
+            <hr />
+        </div>
+
+    </div>
+
+    @if (Model != null && Model.Any())
+    {
+        foreach (var item in Model)
+        {
+            <div class="row row_item_news">
+                <div class="col-md-4">
+                    <div class="blog_item">
+                        <div class="blog_background"><img src="@item.Image"width="410"height="300" /></div>
+                        <div class="blog_content d-flex flex-column align-items-center justify-content-center text-center">
+                            <h4 class="blog_title">@item.Title</h4>
+                            <span class="blog_meta">@item.CreatedDate|@item.CreatedDate.ToString("dd/MM/yyyy")</span>
+                            <a class="blog_more" href="/@item.Alias-n@(item.Id)">Đọc Thêm</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="content-box">
+
+                        <h3><a href="/@item.Alias-n@(item.Id)" title="@item.Title">@item.Title</a></h3>
+
+
+                        <div class="description box">
+                            @item.Description
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        }
+        <div class="pagination-container">
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+        </div>
+    }
+
+</div>
+<style>
+    .pagination-container {
+        display: flex;
+        justify-content: center; /* Căn giữa theo chiều ngang */
+        margin-top: 20px;
+    }
+
+    .pagination {
+        display: inline-flex; /* Đặt các phần tử liên kết ngang hàng */
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+        .pagination a,
+        .pagination span {
+            margin: 0 5px;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            text-decoration: none;
+            color: #333;
+            border-radius: 4px; /* Bo tròn góc cho đẹp */
+            cursor: pointer;
+        }
+
+        .pagination .active span {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+    /* Ẩn ngày tạo và 'Đọc thêm' mặc định */
+    .blog_meta, .blog_more {
+        display: none;
+    }
+
+    /* Hiển thị ngày tạo và 'Đọc thêm' khi hover vào phần tử .blog_item */
+    .blog_item:hover .blog_meta,
+    .blog_item:hover .blog_more {
+        display: block;
+    }
+
+</style>
+

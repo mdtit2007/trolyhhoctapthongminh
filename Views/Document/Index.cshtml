@@ -1,0 +1,56 @@
+﻿@model PagedList.PagedList<ungdunghocthongminh.Models.EF.Document>
+@using PagedList.Mvc;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaiLieu</title>
+    <link href="~/Content/assest/css/tailieu.css" rel="stylesheet" />
+    <link href="~/Content/phantrang.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <div class="breadcrumbs d-flex flex-row align-items-center">
+            <ul>
+                <li><a href="/">Trang Chủ</a></li>
+                <li class="active"><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i>@ViewBag.CateName</a></li>
+            </ul>
+        </div>
+        <!-- Sidebar -->
+        @Html.Action("MenuLetf", "Menu")
+
+        <!-- Main Content -->
+    <div class="main-content">
+        <div class="product-grid">
+            @if (Model != null && Model.Any())
+            {
+                foreach (var item in Model)
+                {
+                    <!-- Product 1 -->
+                    <div class="product-card">
+                        <img src="@item.Img" alt="@item.Title">
+                        <h4><a href="/chi-tiet/@item.Alias-p@(item.Id)">@item.Title</a></h4>
+                    </div>
+                }
+            }
+
+
+        </div>
+        <div class="row">
+            <div class="col-6"></div>
+            <div class="col-6" style="text-align:right;">
+                <div class="paged-list-pager">
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                </div>
+            </div>
+        </div>
+
+    </div>
+    </div>
+</body>
+</html>
+@section scripts{
+    <script src="~/Content/assest/js/categories_custom.js"></script>
+
+}

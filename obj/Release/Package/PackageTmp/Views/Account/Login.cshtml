@@ -1,0 +1,98 @@
+﻿@model ungdunghocthongminh.Models.LoginViewModel
+@{
+    ViewBag.Title = "Đăng Nhập";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+<link href="~/Content/login.css" rel="stylesheet" />
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="login-box">
+        <div class="card card-outline card-primary">
+            <div class="card-header text-center">
+                <a href="/" class="brand-title">
+                    <img src="~/Content/assest/img/logo.jpg" alt="logo" class="img-fluid" />
+                </a>
+            </div>
+            <div class="card-body">
+                <p class="login-box-msg">Đăng nhập để có trải nghiệm tốt hơn!</p>
+                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="input-group mb-3">
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "Nhập Tên Tài Khoản" })
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
+                    </div>
+                    @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+
+                    <div class="input-group mb-3">
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Nhập Mật Khẩu", id = "passwordField" })
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock" id="lockIcon"></span>
+                                <span class="fas fa-eye" id="togglePassword" style="cursor: pointer; display: none;"></span>
+                            </div>
+                        </div>
+                    </div>
+                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+
+                    <div class="row">
+                        <div class="col-7 d-flex align-items-center">
+                            <div class="icheck-primary">
+                                @Html.CheckBoxFor(m => m.RememberMe)
+                                @Html.LabelFor(m => m.RememberMe)
+                            </div>
+                        </div>
+                        <div class="col-5 d-flex justify-content-end">
+                            <button type="submit" class="btn btn-primary btn-block">Đăng Nhập</button>
+                        </div>
+                    </div>
+                }
+                <p class="mb-0">
+                    @Html.ActionLink("Tạo Tài Khoản", "Register")
+                </p>
+                <p class="mb-1">
+                    @Html.ActionLink("Quên Mật Khẩu?", "ForgotPassword")
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    const passwordField = document.getElementById('passwordField');
+    const lockIcon = document.getElementById('lockIcon');
+    const togglePassword = document.getElementById('togglePassword');
+
+    // Hiển thị/ẩn biểu tượng mắt khi nhập mật khẩu
+    passwordField.addEventListener('input', function () {
+        if (passwordField.value.length > 0) {
+            lockIcon.style.display = 'none';
+            togglePassword.style.display = 'inline';
+        } else {
+            lockIcon.style.display = 'inline';
+            togglePassword.style.display = 'none';
+        }
+    });
+
+    // Hiển thị/ẩn mật khẩu khi nhấn vào biểu tượng mắt
+    togglePassword.addEventListener('click', function () {
+        const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordField.setAttribute('type', type);
+
+        this.classList.toggle('fa-eye');
+        this.classList.toggle('fa-eye-slash');
+    });
+
+    // Đảm bảo icon hiển thị đúng trên thiết bị nhỏ
+    window.addEventListener('resize', function () {
+        if (window.innerWidth < 576 && passwordField.value.length === 0) {
+            lockIcon.style.display = 'inline';
+            togglePassword.style.display = 'none';
+        }
+    });
+
+</script>

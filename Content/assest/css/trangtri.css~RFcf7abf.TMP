@@ -1,0 +1,63 @@
+﻿
+/* Particle Effect */
+.particle {
+    position: absolute;
+    background-color: #17a2b8;
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    opacity: 0.8;
+    animation: particleMove 6s linear infinite;
+}
+
+.particle:nth-child(2) {
+    background-color: #28a745;
+    width: 20px;
+    height: 20px;
+    animation-duration: 5s;
+}
+
+.particle:nth-child(3) {
+    background-color: #ffc107;
+    width: 25px;
+    height: 25px;
+    animation-duration: 7s;
+}
+
+@keyframes particleMove {
+    0% {
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%) scale(0.5);
+        opacity: 0.8;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        top: 0;
+        left: 80%;
+        transform: translateX(-50%) scale(1);
+        opacity: 0;
+    }
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    h5 {
+        font-size: 1.2rem;
+    }
+
+    .card-title {
+        font-size: 1rem;
+    }
+
+    .btn {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+    }
+}
+
+

@@ -1,0 +1,57 @@
+﻿@model IEnumerable<ungdunghocthongminh.Models.EF.Schedule>
+@{
+    // Tính ngày đầu tuần (Thứ 2 là ngày đầu tuần)
+    DateTime startOfWeek = DateTime.Now.AddDays(-(int)DateTime.Now.DayOfWeek + (int)DayOfWeek.Monday + (ViewBag.WeekOffset ?? 0) * 7);
+}
+<div class="filters">
+    <input type="radio" id="all" name="filter" checked>
+    <label for="all">Tất cả</label>
+    <input type="radio" id="schedule" name="filter">
+    <label for="schedule">Lịch học</label>
+    <input type="radio" id="exam" name="filter">
+    <label for="exam">Lịch thi</label>
+    <input id="currentDate" type="text" placeholder="">
+    <button id="current-week" class="btn btn-sm btn-success">Hiện tại</button>
+    <button id="previous-week" class="btn btn-sm btn-success">Trở về</button>
+    <button id="next-week" class="btn btn-sm btn-success">Tiếp</button>
+</div>
+<div class="schedule-table-wrapper">
+    <table class="schedule-table">
+        <tr>
+            <th>Ca học</th>
+            @for (int day = 0; day < 7; day++) // 0 đến 6 để lặp từ Thứ 2 đến Chủ nhật
+            {
+                // Lấy ngày hiện tại của từng cột
+                DateTime dateForDay = startOfWeek.AddDays(day);
+                <th class="day">@("Thứ " + (day + 2)) <br /> @dateForDay.ToString("dd/MM/yyyy")</th>
+            }
+        </tr>
+
+        @for (int i = 0; i < 2; i++)  // Sáng (i=0), Chiều (i=1)
+        {
+            <tr>
+                <td>@((i == 0) ? "Sáng" : "Chiều")</td>
+
+                @for (int day = 1; day <= 7; day++) // Thứ 2 đến Chủ nhật
+                {
+                    <td class="day-column">
+                        @foreach (var item in Model.Where(x =>
+                            (int)x.Start.DayOfWeek == day &&
+                            ((i == 0 && x.Start.Hour < 12) || (i == 1 && x.Start.Hour >= 12)))
+                        )
+                        {
+                            <div class="class">
+                                <div class="title">@item.Title</div>
+                                <div>@item.ClassId</div>
+                                <div>Tiết: @item.Tiet</div>
+                                <div>Giờ: @item.Start.ToString("HH:mm") - @item.End.ToString("HH:mm")</div>
+                                <div>Phòng: @item.className</div>
+                                <div class="teacher">GV: @item.TeacherName</div>
+                            </div>
+                        }
+                    </td>
+                }
+            </tr>
+        }
+    </table>
+</div>

@@ -1,0 +1,27 @@
+﻿/* Cấu hình cho bảng để làm responsive */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto; /* Thêm thanh cuộn ngang cho bảng trên màn hình nhỏ */
+    -webkit-overflow-scrolling: touch; /* Cải thiện trải nghiệm cuộn trên thiết bị di động */
+}
+
+/* Đảm bảo hình ảnh không bị lệch và kích thước vừa phải */
+img {
+    max-width: 100%; /* Giảm kích thước hình ảnh tự động trên các màn hình nhỏ */
+    height: auto;
+}
+
+/* Điều chỉnh lại chiều rộng cho các nút và phần tử khác khi màn hình nhỏ */
+@media (max-width: 768px) {
+    .card-header .card-title {
+        font-size: 14px; /* Giảm kích thước font */
+    }
+
+    .table th, .table td {
+        padding: 8px; /* Giảm khoảng cách padding */
+    }
+
+    .btn-sm {
+        font-size: 12px; /* Giảm kích thước nút trên màn hình nhỏ */
+    }
+}

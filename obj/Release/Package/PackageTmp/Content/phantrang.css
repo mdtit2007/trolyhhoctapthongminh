@@ -1,0 +1,54 @@
+﻿
+/* Container Alignment */
+.paged-list-pager {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 10px;
+    gap: 5px;
+}
+
+/* Pagination Buttons */
+.paged-list-pager a, .paged-list-pager span {
+    display: inline-block;
+    padding: 8px 12px;
+    margin: 0 3px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #ff6a00;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+/* Hover Effect */
+.paged-list-pager a:hover {
+    background-color: #ff6a00;
+    color: white;
+    border-color: #ff6a00;
+}
+
+/* Disabled Buttons */
+.paged-list-pager .disabled {
+    color: #6c757d;
+    background-color: #e9ecef;
+    border-color: #dee2e6;
+    pointer-events: none;
+}
+
+/* Mobile Friendly (Optional) */
+@media (max-width: 768px) {
+    .paged-list-pager {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+        .paged-list-pager a, .paged-list-pager span {
+            margin: 5px 0;
+            width: 40px;
+            text-align: center;
+        }
+}
+
+

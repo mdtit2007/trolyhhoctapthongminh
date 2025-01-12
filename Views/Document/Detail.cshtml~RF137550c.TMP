@@ -1,0 +1,81 @@
+﻿@model ungdunghocthongminh.Models.EF.Document
+@{
+    ViewBag.Title = "Detail";
+}
+
+<link href="~/Content/tailieu.css" rel="stylesheet" />
+@if (Model != null)
+{
+    <div class="container single_product_container">
+        <div class="row">
+            <div class="col">
+
+                <!-- Breadcrumbs -->
+
+                <div class="breadcrumbs d-flex flex-row align-items-center">
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/danh-muc-tai-lieu/@Model.Alias-@Model.DocumentCategoryId"><i class="fa fa-angle-right" aria-hidden="true"></i>@Model.DocumentCategory.Title</a></li>
+                        <li class="active"><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>@Model.Title</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-6">
+                <div class="product_details">
+                    <div class="product_details_title">
+                        <h2>@Model.Title</h2>
+                        <p>@Model.Description</p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div id="scroll-book-container" class="scroll-book-container">
+                    <div id="scroll-book" class="scroll-book">
+                        @Html.Raw(Model.Detail) <!-- Nội dung Model.Detail -->
+
+                        @if (!string.IsNullOrEmpty(ViewBag.FilePath))
+                        {
+                            var fileExtension = Path.GetExtension(ViewBag.FilePath).ToLower();
+                            if (fileExtension == ".pdf")
+                            {
+                                <iframe src="@Url.Content(ViewBag.FilePath)" frameborder="0"></iframe>
+                            }
+                            else if (fileExtension == ".jpg" || fileExtension == ".jpeg" || fileExtension == ".png" || fileExtension == ".gif")
+                            {
+                                <img src="@Url.Content(ViewBag.FilePath)" alt="Document Image" />
+                            }
+                            else if (fileExtension == ".doc" || fileExtension == ".docx" || fileExtension == ".xls" || fileExtension == ".xlsx")
+                            {
+                                // Sử dụng Google Docs Viewer để nhúng Word và Excel
+                                string googleViewer = "https://docs.google.com/gview?url=" + HttpUtility.UrlEncode(ViewBag.FilePath) + "&embedded=true";
+                                <iframe src="@googleViewer" frameborder="0"></iframe>
+                            }
+                            else
+                            {
+                                <p>File type not supported for display.</p>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+
+}
+
+@section scripts{
+    <script src="~/Content/assest/js/single_custom.js"></script>
+    
+    }
+
+
+

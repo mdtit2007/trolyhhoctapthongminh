@@ -1,0 +1,145 @@
+﻿
+@model ungdunghocthongminh.Models.LoginViewModel
+@{
+    ViewBag.Title = "Đăng Nhập";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+
+
+}
+
+<div class="login-box">
+    <!-- /.login-logo -->
+    <div class="card card-outline card-primary">
+        <div class="card-header text-center">
+            <a href="/" class="brand-title">
+               <img src="~/Content/assest/img/Schoolthpt.png"alt=""/>
+            </a>
+
+        </div>
+        <div class="card-body">
+            <p class="login-box-msg">Đăng nhập để có trải nghiệm tốt hơn!</p>
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="input-group mb-3">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Nhập Tên Tài Khoản" })
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-envelope"></span>
+                        </div>
+                    </div>
+                </div>
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+
+                <div class="input-group mb-3">
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Nhập Mật Khẩu", id = "passwordField" })
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock" id="lockIcon"></span>
+                            <span class="fas fa-eye" id="togglePassword" style="cursor: pointer; display: none;"></span>
+                        </div>
+                    </div>
+                </div>
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+
+                <div class="row">
+                    <div class="col-8 d-flex align-items-center">
+                        <div class="icheck-primary">
+                            <div class="checkbox">
+                                @Html.CheckBoxFor(m => m.RememberMe)
+                                @Html.LabelFor(m => m.RememberMe)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4 d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary btn-block">Đăng Nhập</button>
+                    </div>
+                </div>
+
+            }
+
+            <div class="social-auth-links text-center mt-2 mb-3">
+                <a href="#" class="btn btn-block btn-primary">
+                    <i class="fab fa-facebook mr-2"></i> Đăng nhập với Facebook
+                </a>
+                <a href="#" class="btn btn-block btn-danger">
+                    <i class="fab fa-google-plus mr-2"></i> Đăng nhập với Google+
+                </a>
+            </div>
+            <!-- /.social-auth-links -->
+
+            <p class="mb-1">
+                @Html.ActionLink("Quên Mật Khẩu?", "ForgotPassword")
+            </p>
+            <p class="mb-0">
+                @Html.ActionLink("Tạo Tài Khoản", "Register")
+            </p>
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+</div>
+<!-- /.login-box -->
+<style>
+    .input-group {
+        position: relative;
+    }
+
+    .text-danger {
+        margin-top: 5px; /* Khoảng cách giữa thông báo lỗi và trường nhập liệu */
+        font-size: 0.875rem; /* Kích thước font của thông báo lỗi */
+    }
+    /* Phong cách cho tiêu đề */
+    .brand-title {
+        text-decoration: none; /* Loại bỏ gạch chân */
+        display: inline-block; /* Giữ khối gọn gàng */
+        text-align: center;
+    }
+
+        .brand-title h2 {
+            font-size: 36px; /* Kích thước chữ lớn */
+            font-weight: 700; /* In đậm */
+            color: #0026ff; /* Màu cam nổi bật */
+            margin: 0;
+            padding: 0;
+            transition: color 0.3s ease, transform 0.3s ease; /* Hiệu ứng chuyển động */
+            font-family: 'Poppins', sans-serif; /* Font chữ hiện đại */
+            letter-spacing: 1px; /* Khoảng cách giữa các ký tự */
+        }
+
+        /* Hiệu ứng khi hover */
+        .brand-title:hover h2 {
+            color: #e3672d; /* Màu cam đậm hơn khi hover */
+            transform: scale(1.1); /* Phóng to nhẹ khi di chuột qua */
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Đổ bóng chữ */
+        }
+
+</style>
+<script>const passwordField = document.getElementById('passwordField');
+    const lockIcon = document.getElementById('lockIcon');
+    const togglePassword = document.getElementById('togglePassword');
+
+    // Hiển thị/ẩn biểu tượng mắt khi người dùng bắt đầu nhập mật khẩu
+    passwordField.addEventListener('input', function () {
+        if (passwordField.value.length > 0) {
+            lockIcon.style.display = 'none'; // Ẩn biểu tượng khóa khi bắt đầu nhập
+            togglePassword.style.display = 'inline'; // Hiển thị biểu tượng mắt
+        } else {
+            lockIcon.style.display = 'inline'; // Hiển thị biểu tượng khóa nếu trường mật khẩu trống
+            togglePassword.style.display = 'none'; // Ẩn biểu tượng mắt nếu trường mật khẩu trống
+        }
+    });
+
+    // Hiển thị/ẩn mật khẩu khi người dùng nhấn vào biểu tượng mắt
+    togglePassword.addEventListener('click', function () {
+        const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordField.setAttribute('type', type);
+
+        // Chuyển đổi biểu tượng mắt
+        this.classList.toggle('fa-eye');
+        this.classList.toggle('fa-eye-slash');
+    });</script>
+
+

@@ -1,0 +1,128 @@
+﻿
+.news_section_container {
+    margin-top: 150px;
+}
+
+.title-news {
+    font-size: 35px;
+    padding: 15px 0;
+    margin-bottom: 25px;
+}
+
+.Img-box img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.row_item_news {
+    margin-bottom: 30px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.content-box a {
+    color: #000000;
+    text-decoration: none;
+}
+
+.blog_item {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+
+.blog_background {
+    position: relative;
+}
+
+    .blog_background img {
+        width: 200px; /* Fixed width */
+        height: 200px; /* Fixed height */
+        object-fit: cover; /* Ensures the image covers the area without stretching */
+    }
+
+.blog_content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    display: none; /* Hidden by default */
+    text-align: center;
+    width: 80%;
+    box-sizing: border-box;
+}
+
+.blog_title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.description.box {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-top: 10px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .title-news {
+        font-size: 28px;
+    }
+
+    .row_item_news {
+        flex-direction: column;
+    }
+
+    .blog_content {
+        width: 90%;
+    }
+
+    .blog_background img {
+        width: 100%;
+        height: auto;
+    }
+
+    .col-md-4,
+    .col-md-8 {
+        width: 100%;
+        padding: 0;
+    }
+}
+
+/* Pagination Styling */
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination {
+    display: inline-flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+    .pagination a,
+    .pagination span {
+        margin: 0 5px;
+        padding: 8px 12px;
+        border: 1px solid #ddd;
+        text-decoration: none;
+        color: #333;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .pagination .active span {
+        background-color: #007bff;
+        color: white;
+        border-color: #007bff;
+    }
+
+

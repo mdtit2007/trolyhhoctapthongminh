@@ -1,0 +1,91 @@
+﻿
+/* Tối ưu hóa bảng */
+.table-responsive {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 15px;
+    overflow-x: auto;
+}
+
+/* Tối ưu hóa hiển thị các cột trên các thiết bị nhỏ */
+table th, table td {
+    text-align: center;
+    vertical-align: middle;
+    padding: 10px;
+    font-size: 0.875rem;
+}
+
+/* Tối ưu hóa tiêu đề và không gian */
+.card-header h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.card-tools a {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+}
+
+/* Thiết kế responsive cho màn hình nhỏ */
+@media (max-width: 768px) {
+    .table th, .table td {
+        font-size: 0.75rem; /* Giảm kích thước chữ trên màn hình nhỏ */
+    }
+
+    .btn {
+        font-size: 0.8rem; /* Giảm kích thước nút */
+        padding: 0.3rem 0.6rem;
+    }
+
+    .card-header h3 {
+        font-size: 1.1rem; /* Giảm kích thước tiêu đề */
+    }
+
+    .card-tools {
+        display: flex;
+        justify-content: flex-end;
+    }
+}
+
+/* Cho điện thoại */
+@media (max-width: 576px) {
+    .card-body {
+        padding: 10px; /* Giảm padding để phù hợp với màn hình nhỏ */
+    }
+
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+        table th, table td {
+            font-size: 0.7rem; /* Giảm kích thước chữ cho điện thoại */
+            padding: 8px; /* Giảm padding */
+        }
+
+    .card-tools a {
+        font-size: 0.8rem;
+    }
+
+    .btn {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.75rem;
+    }
+
+    .breadcrumb {
+        font-size: 0.8rem; /* Giảm kích thước breadcrumb */
+    }
+}
+
+/* Điều chỉnh cho nút xóa */
+.btnDelete {
+    cursor: pointer;
+}
+
+/* Thêm hiệu ứng hover cho các nút */
+.btn:hover {
+    opacity: 0.8;
+}
+
+

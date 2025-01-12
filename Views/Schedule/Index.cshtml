@@ -1,0 +1,127 @@
+﻿<head>
+    <title>Lịch học, lịch thi theo tuần</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+
+    <link href="~/Content/lichhoc.css" rel="stylesheet" />
+    <!-- Thêm Flatpickr CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h2>Lịch học, lịch thi theo tuần</h2>
+        <div class="filters">
+            <input type="radio" id="all" name="filter" checked>
+            <label for="all">Tất cả</label>
+            <input type="radio" id="schedule" name="filter">
+            <label for="schedule">Lịch học</label>
+            <input type="radio" id="exam" name="filter">
+            <label for="exam">Lịch thi</label>
+            <input type="radio" id="sk" name="filter">
+            <label for="sk">Sự kiện khác</label>
+            <input id="currentDate" type="text" placeholder="">
+            <button id="current-week" class="btn btn-sm btn-info">Hiện tại</button>
+            <button id="previous-week" class="btn btn-sm btn-success">Trở về</button>
+            <button id="next-week" class="btn btn-sm btn-warning">Tiếp</button>
+        </div>
+
+        <div id="schedule-container">
+            @Html.Action("PartialSchedule", "Schedule", new { weekOffset = 0 })
+        </div>
+
+        <!-- Legend section -->
+        <div class="legend">
+            <div><span class="theory"></span> Lịch học </div>
+            <div><span class="exam"></span> Lịch thi</div>
+            <div><span class="suspend"></span> Lịch tạm ngưng</div>
+            <div><span class="practice"></span> Sự kiện khác</div>
+        </div>
+    </div>
+
+</body>
+
+@section scripts{
+    <script src="~/Scripts/lichhoc.js"></script>
+    <script>
+
+    const allRadio = document.getElementById('all');
+    const scheduleRadio = document.getElementById('schedule');
+    const examRadio = document.getElementById('exam');
+    const skRadio = document.getElementById('sk');
+
+    const scheduleContainer = document.getElementById('schedule-container');
+    let currentFilter = 'all';  // Lưu trữ filterType hiện tại
+    let currentWeekOffset = 0;  // Lưu trữ sự thay đổi tuần
+
+    // Hàm tải lại lịch theo filterType và weekOffset
+    function loadSchedule(filterType, weekOffset) {
+        $.ajax({
+            url: '@Url.Action("PartialSchedule", "Schedule")',
+            data: { filterType: filterType, weekOffset: weekOffset },
+            success: function(data) {
+                scheduleContainer.innerHTML = data;
+            },
+            error: function() {
+                alert("Có lỗi xảy ra khi tải dữ liệu.");
+            }
+        });
+    }
+
+    // Lắng nghe sự thay đổi của các radio button
+    allRadio.addEventListener('change', function() {
+        if (allRadio.checked) {
+            currentFilter = 'all';
+            loadSchedule(currentFilter, currentWeekOffset);  // Hiển thị tất cả
+        }
+    });
+
+    scheduleRadio.addEventListener('change', function() {
+        if (scheduleRadio.checked) {
+            currentFilter = 'schedule';
+            loadSchedule(currentFilter, currentWeekOffset);  // Hiển thị Lịch học
+        }
+    });
+
+    examRadio.addEventListener('change', function() {
+        if (examRadio.checked) {
+            currentFilter = 'exam';
+            loadSchedule(currentFilter, currentWeekOffset);  // Hiển thị Lịch thi
+        }
+    });
+
+    skRadio.addEventListener('change', function() {
+        if (skRadio.checked) {
+            currentFilter = 'sk';
+            loadSchedule(currentFilter, currentWeekOffset);  // Hiển thị Sự kiện khác
+        }
+    });
+
+    // Nút "Hiện tại" - quay về tuần hiện tại
+    document.getElementById('current-week').addEventListener('click', function() {
+        currentWeekOffset = 0;  // Đặt lại về tuần hiện tại
+        loadSchedule(currentFilter, currentWeekOffset);  // Tải lại lịch theo filter hiện tại
+    });
+
+    // Nút "Trở về" - quay về tuần trước
+    document.getElementById('previous-week').addEventListener('click', function() {
+        currentWeekOffset--;  // Giảm tuần đi 1
+        loadSchedule(currentFilter, currentWeekOffset);  // Tải lại lịch theo filter và tuần mới
+    });
+
+    // Nút "Tiếp" - qua tuần tiếp theo
+    document.getElementById('next-week').addEventListener('click', function() {
+        currentWeekOffset++;  // Tăng tuần lên 1
+        loadSchedule(currentFilter, currentWeekOffset);  // Tải lại lịch theo filter và tuần mới
+    });
+
+    // Lọc theo filter ban đầu khi trang load
+    loadSchedule(currentFilter, currentWeekOffset);
+    </script>
+}
+
+
+
+
+
+
+
+

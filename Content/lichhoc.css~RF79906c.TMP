@@ -1,0 +1,229 @@
+﻿/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    margin-top: 180px;
+}
+
+/* Filters section */
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-radius: 8px;
+}
+
+    .filters label {
+        display: inline-block;
+        margin-right: 15px;
+    }
+
+    .filters input[type="radio"] {
+        margin-right: 5px;
+    }
+
+.date-picker {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+    .date-picker input {
+        padding: 5px 10px;
+        font-size: 16px;
+        margin-right: 10px;
+        border-radius: 4px;
+        border: 1px solid #ddd;
+    }
+
+    .date-picker button {
+        background-color: #28a745;
+        color: #fff;
+        border: none;
+        padding: 6px 10px;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+
+.buttons button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+    .buttons button i {
+        margin-right: 5px;
+    }
+
+    .buttons button:hover {
+        background-color: #1c7430;
+    }
+
+/* Schedule table */
+.schedule-table-wrapper {
+    overflow-x: auto;
+    margin-top: 20px;
+}
+
+.schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+}
+
+    .schedule-table th,
+    .schedule-table td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: center;
+    }
+
+    .schedule-table th {
+        background-color: #fff;
+        color: #f9905f;
+    }
+
+    .schedule-table td {
+        background-color: #fff;
+    }
+
+/* Legend */
+.legend {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+    .legend div {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .legend span {
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+    }
+
+/* Colors for legend */
+.theory {
+    background-color: #daebf9;
+}
+
+.practice {
+    background-color: #dffdcc;
+}
+
+.exam {
+    background-color: #f9fccc;
+}
+
+.suspend {
+    background-color: #fec0af;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .filters {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .date-picker {
+        margin-right: 0;
+    }
+
+    .buttons button {
+        width: 100%;
+    }
+
+    .schedule-table th,
+    .schedule-table td {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .schedule-table {
+        min-width: 100%; /* Bảng co dãn với màn hình */
+    }
+
+    .legend {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 480px) {
+    .filters {
+        gap: 5px;
+    }
+
+    .date-picker input {
+        font-size: 14px;
+        padding: 5px;
+    }
+
+    .date-picker button {
+        padding: 5px;
+        font-size: 14px;
+    }
+
+    .buttons button {
+        padding: 8px 10px;
+        font-size: 14px;
+    }
+
+    .schedule-table th,
+    .schedule-table td {
+        padding: 8px;
+        font-size: 12px;
+    }
+
+    .schedule-table th {
+        font-size: 12px;
+    }
+
+    .legend div {
+        gap: 10px;
+    }
+
+    .legend span {
+        width: 12px;
+        height: 12px;
+    }
+}
+
+/* Đặt mặc định kiểu dáng cho radio */
+input[type="radio"] {
+    
+   
+ 
+    cursor: pointer;
+    background-color: #fff; /* Màu nền mặc định */
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+    /* Hiển thị màu cam khi được chọn */
+    input[type="radio"]:checked {
+        background-color: #fb7c4d; /* Màu cam khi được chọn */
+        border-color: #e3672d; /* Làm viền đậm hơn */
+    }
+
+    /* Khi hover, thêm hiệu ứng */
+    input[type="radio"]:hover {
+        border-color: #e3672d; /* Viền đậm hơn khi hover */
+        box-shadow: 0 0 4px rgba(251, 124, 77, 0.6); /* Hiệu ứng sáng */
+    }

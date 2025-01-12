@@ -1,0 +1,161 @@
+﻿/* Fish tank container */
+.fish-tank {
+    position: relative;
+    height: 200px;
+    background: #87CEFA; /* Màu nền giống nước biển */
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* Bubble animation */
+.bubble {
+    position: absolute;
+    bottom: 0;
+    width: 30px;
+    height: 30px;
+    background-color: #fff;
+    border-radius: 50%;
+    animation: bubble 5s infinite;
+}
+
+    .bubble:nth-child(1) {
+        left: 20%;
+        animation-duration: 4s;
+    }
+
+    .bubble:nth-child(2) {
+        left: 50%;
+        animation-duration: 6s;
+    }
+
+    .bubble:nth-child(3) {
+        left: 80%;
+        animation-duration: 5s;
+    }
+
+/* Keyframe for bubble animation */
+@keyframes bubble {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(-200px);
+    }
+}
+
+/* Flying bubble animation */
+.flying-bubble {
+    position: absolute;
+    bottom: 0;
+    width: 20px;
+    height: 20px;
+    background-color: #FFD700; /* Màu vàng cho bong bóng bay */
+    border-radius: 50%;
+    animation: flying 4s infinite;
+}
+
+    .flying-bubble:nth-child(1) {
+        left: 25%;
+        animation-duration: 3s;
+    }
+
+    .flying-bubble:nth-child(2) {
+        left: 55%;
+        animation-duration: 5s;
+    }
+
+    .flying-bubble:nth-child(3) {
+        left: 80%;
+        animation-duration: 4s;
+    }
+
+/* Keyframe for flying bubble animation */
+@keyframes flying {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-300px);
+        opacity: 0;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+    .col-12 {
+        margin-bottom: 20px;
+    }
+
+    .fish-tank, .effects-container {
+        height: 150px; /* Giảm chiều cao cho mobile */
+    }
+
+    .bubble, .flying-bubble {
+        width: 20px; /* Giảm kích thước bong bóng */
+        height: 20px;
+    }
+
+    .card-body {
+        padding: 1rem; /* Điều chỉnh khoảng cách cho các thẻ card */
+    }
+
+    .display-4 {
+        font-size: 1.5rem; /* Giảm kích thước tiêu đề */
+    }
+}
+/* Thẻ card */
+.card {
+    border-radius: 15px; /* Bo góc */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Thêm bóng mờ cho thẻ */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Thêm hiệu ứng khi hover */
+    overflow: hidden; /* Đảm bảo không bị tràn ra ngoài */
+}
+
+    /* Hiệu ứng hover cho card */
+    .card:hover {
+        transform: translateY(-5px); /* Di chuyển nhẹ lên khi hover */
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Tăng độ bóng */
+    }
+
+/* Card body */
+.card-body {
+    padding: 1.5rem; /* Điều chỉnh padding cho card */
+}
+
+/* Icon trong card */
+.card i {
+    font-size: 2.5rem; /* Tăng kích thước icon */
+    margin-bottom: 1rem; /* Tạo khoảng cách giữa icon và text */
+    color: #007bff; /* Màu icon */
+}
+
+/* Title của card */
+.card-title {
+    font-size: 1.25rem; /* Kích thước font tiêu đề */
+    font-weight: 600; /* Đậm tiêu đề */
+    margin-bottom: 1rem;
+    color: #333; /* Màu chữ */
+}
+
+/* Nội dung trong card */
+.card-text {
+    font-size: 1rem; /* Kích thước chữ nhỏ hơn một chút */
+    color: #777; /* Màu chữ nhẹ nhàng */
+}
+
+/* Button trong card */
+.card .btn {
+    border-radius: 20px; /* Bo góc button */
+    padding: 0.75rem 2rem; /* Điều chỉnh padding cho button */
+    font-size: 1rem; /* Kích thước chữ trong button */
+    transition: background-color 0.3s ease; /* Thêm hiệu ứng cho button khi hover */
+}
+
+    /* Button khi hover */
+    .card .btn:hover {
+        background-color: #0056b3; /* Màu khi hover */
+        color: white; /* Màu chữ trắng */
+    }
